@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>COP 4331 LAMP Stack Demo</title>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="register-styles.css" />
+</head>
+<body class="bg">
+	<div class="root">
+		<div< class="container">
+			<div class="login-container">
+				<div class="login-form">    
+					<h1 class="login-title">Register</h1>
+					<form class="inputs" id="loginResult" action="./LAMPAPI/Login.php" method="post">
+						<p class="login-name">Username</p>
+						<input class="login-input" type="Username" id="loginName" name="login" class="txtbox" placeholder="Enter a username" required/>
+						<p class="login-name">Password</p>
+						<input class="login-input" type="password" id="loginPassword" name="password" class="txtbox" placeholder="Enter a password" required/>
+						<br/>
+						<input type="submit" name="login" value="Register" class="btn btn-register" onclick="doLogin()" />
+						<!-- <button type="button" class="btn" onclick="doLogin()">Login</button> -->
+					</form>
+					<hr role="presentation">
+					<h2>Already have an account?</h2>
+					<button class="btn btn-login" type="button" onclick="location.href='index.html'">Click here to login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
