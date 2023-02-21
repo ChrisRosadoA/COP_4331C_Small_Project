@@ -13,13 +13,14 @@
 			<div class="login-container">
 				<div class="login-form">
 					<h1 class="login-title">Messenger App</h1>
-					<form class="inputs" id="loginResult" action="./LAMPAPI/Login.php" method="post">
+					<form class="inputs" id="loginResult" action="./LAMPAPI/Login.php" method="POST">
 						<p class="login-name">Username</p>
 						<input class="login-input" type="username" id="loginName" name="login" class="txtbox" placeholder="Username" required/>
 						<p class="login-name">Password</p>
 						<input class="login-input" type="password" id="loginPassword" name="password" class="txtbox" placeholder="Password" required/>
 						<br/>
 						<input type="submit" name="login" value="Login" class="btn btn-login" onclick="doLogin()" />
+						<!-- <input type="submit" name="login" value="Login" class="btn btn-login" /> -->
 						<!-- <button type="button" class="btn" onclick="doLogin()">Login</button> -->
 					</form>
 					<hr role="presentation">
