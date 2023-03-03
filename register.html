@@ -13,7 +13,7 @@
 			<div class="login-container">
 				<div class="login-form">    
 					<h1 class="login-title">Register</h1>
-					<form class="inputs" id="loginResult" action="./LAMPAPI/Login.php" method="post">
+					<form class="inputs" id="login-field" action="./LAMPAPI/Login.php" method="post">
 						<p class="login-name">Username</p>
 						<input class="login-input" type="Username" id="loginName" name="login" class="txtbox" placeholder="Enter a username" required/>
 						<p class="login-name">Password</p>
@@ -21,6 +21,7 @@
 						<br/>
 						<input type="submit" name="login" value="Register" class="btn btn-register" onclick="doLogin()" />
 						<!-- <button type="button" class="btn" onclick="doLogin()">Login</button> -->
+						<p id="loginResult" class="login-name login-result"></p>
 					</form>
 					<hr role="presentation">
 					<h2>Already have an account?</h2>

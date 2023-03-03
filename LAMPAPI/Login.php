@@ -26,7 +26,7 @@
 		else
 		{
 			returnWithError("No Records Found");
-		}
+		}	
 
 		$stmt->close();
 		$conn->close();
