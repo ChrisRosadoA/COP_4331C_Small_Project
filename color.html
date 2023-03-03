@@ -1,40 +1,41 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
-	</script>
-	
+  <meta charset="UTF-8">
+  <title>Contact List</title>
+  <link rel="stylesheet" href="./css/color.css">
+  <script type="text/javascript" src="js/contacts.js"></script>
 </head>
+
 <body>
-
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-</div>
-
-<div id="accessUIDiv">
-	<br />
-
-	<input type="text" id="searchText" placeholder="Color To Search For"/>
-	<button type="button" id="searchColorButton" class="buttons" onclick="searchColor();"> Search Color </button><br />
-	<span id="colorSearchResult"></span>
-	<p id="colorList">
-	</p><br /><br />
-
-	<input type="text" id="colorText" placeholder="Color To Add">
-	<button type="button" id="addColorButton" class="buttons" onclick="addColor();"> Add Color </button><br />
-	<span id="colorAddResult"></span>
-</div>
-
+    <div class="contact-list-container">
+        <div class="add-contact">
+          <input type="text" placeholder="Name" id="name-input">
+          <input type="text" placeholder="Last name" id="last-name-input">
+          <input type="text" placeholder="Email" id="email-input">
+          <input type="text" placeholder="Phone number" id="phone-input">
+          <button id="add-contact-btn">Add Contact</button>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="Search" id="search-input">
+        </div>
+        <table class="contact-list">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Phone number</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="contact-list-body">
+            <!-- Contacts will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+      
 </body>
+
 </html>

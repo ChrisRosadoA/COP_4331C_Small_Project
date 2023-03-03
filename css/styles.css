@@ -77,6 +77,10 @@ body {
     color: var(--text-base,#000000);
 }
 
+.login-result {
+    color: var(--text-base, #bd0000)
+}
+
 .btn {
     font-family: spotify-circular, Helvetica, Arial, sans-serif;
     color: #fff;
@@ -106,6 +110,8 @@ body {
 .btn:hover {
     transform: scale(1.1);
 }
+
+
 
 h2 {
     display: block;

@@ -12,13 +12,18 @@ function doLogin()
 	lastName = "";
 	
 	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
+	let password = md5(document.getElementById("loginPassword").value);
+	// var hash = md5( password );
 
-	//console.log(login);
-	//console.log(password);
+	console.log(login);
+	console.log(password);
 	
 	document.getElementById("loginResult").innerHTML = "";
+
+	if (login == "" || password =="") {
+		document.getElementById("loginResult").innerHTML = "All fields are required";
+		return;
+	}
 
 	let tmp = {login:login,password:password};
 //	var tmp = {login:login,password:hash};
@@ -27,8 +32,10 @@ function doLogin()
 	let url = urlBase + '/Login.' + extension;
 
 	let xhr = new XMLHttpRequest();
+	
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	console.log(xhr);
 	try
 	{
 		xhr.onreadystatechange = function() 
@@ -56,6 +63,7 @@ function doLogin()
 	}
 	catch(err)
 	{
+		console.log(err);
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
