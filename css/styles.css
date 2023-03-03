@@ -2,10 +2,11 @@ body {
     margin: 0px;
     display: block;
     font-family: sans-serif;
+    color: white;
 }
 
 .root {
-    display: block;
+   display: block;
 }
 
 .container {
@@ -46,7 +47,7 @@ body {
     box-sizing: border-box;
     font-family: spotify-circular, Helvetica, Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
-    font-size: 0.875rem;
+    font-size: 1.1rem;
     line-height: 1.25rem;
     -webkit-box-align: center;
     align-items: center;
@@ -77,13 +78,9 @@ body {
     color: var(--text-base,#000000);
 }
 
-.login-result {
-    color: var(--text-base, #bd0000)
-}
-
 .btn {
     font-family: spotify-circular, Helvetica, Arial, sans-serif;
-    color: #fff;
+    color: #00ffff;
     text-align: center;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -97,8 +94,14 @@ body {
 }
 
 .btn-login {
-    color: var(--text-base,#000000);
-    background-color: #1db954;
+    color: var(--text-base,#000000); 
+    background-color: #00ffff;
+
+    <!-- background-color: #1db954;--> 
+
+
+
+
 }
 
 .btn-register {
@@ -111,11 +114,9 @@ body {
     transform: scale(1.1);
 }
 
-
-
 h2 {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.1rem;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
     margin-inline-start: 0px;
@@ -123,3 +124,5 @@ h2 {
     font-weight: bold;
     text-align: center;
 }
+
+
