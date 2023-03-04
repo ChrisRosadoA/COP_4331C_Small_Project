@@ -1,49 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Contact List</title>
-  <link rel="stylesheet" href="./css/color.css">
-  <script type="text/javascript" src="js/contacts.js"></script>
+	<title>COP 4331 LAMP Stack Demo</title>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+  <script src="https://kit.fontawesome.com/040d09d5dd.js" crossorigin="anonymous"></script>
 
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() 
-    {
-      readCookie();
-      showTable();
-    }, false);
-  </script>
+    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed--> 
+    <link href="css/style.css" rel="stylesheet"> <!-- Animated Background --> 
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() 
+      {
+        readCookie();
+        showTable();
+      }, false);
+    </script> -->
+
+	
+   <!--   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> -->
+
+   <!-- <link rel="stylesheet" type="text/css" href="register-styles.css" /> -->
+
+
 </head>
+<body class="bg">
 
-<body>
-    <div class="contact-list-container">
-        <div class="add-contact">
-          <input type="text" placeholder="Name" id="name-input">
-          <input type="text" placeholder="Last name" id="last-name-input">
-          <input type="text" placeholder="Email" id="email-input">
-          <input type="text" placeholder="Phone number" id="phone-input">
-          <button id="add-contact-btn">Add Contact</button>
-        </div>
-        <div class="search-bar">
-          <input type="text" placeholder="Search" id="search-input">
-        </div>
-        <table class="contact-list">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Last name</th>
-              <th>Email</th>
-              <th>Phone number</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="contact-list-body">
-            <!-- Contacts will be dynamically added here -->
-          </tbody>
-        </table>
-      </div>
-      
+
+<!--Beginning of Animated Background -->
+
+
+<div id="hey"><div id="layer-up"></div></div>
+<div id="layer-0">
+	
+	<div id="layer-1">
+		<div id="layer-2">
+			<div id="lines">
+				<div id="layer-corner"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="mtnZZZ"></div>
+
+<!--End of Animated Background -->
+
+
+
+
+	<div class="root">
+		<div< class="container">
+			<div class="login-container">
+				<div class="login-form">    
+					<h1 class="login-title">Contacts</h1>
+
+          <div class="search-add">
+            <input class="login-input" type="text" id="search-bar" name="search" class="txtbox" placeholder="Search..." />
+            <hr role="presentation">
+
+            <button id="toggle-button" type="button" class="btn" onclick="toggleContact()">Add Contact</button>
+            
+            <form class="add-contact-form" id="toggle-slider-contact">
+              
+              <p class="login-name">Name</p>
+              <input class="login-input" type="name" id="contactname" name="login" class="txtbox" placeholder="First name" required/>
+              <p class="login-name">Last Name</p>
+              <input class="login-input" type="name" id="contactlastname" name="password" class="txtbox" placeholder="Last name" required/>
+              <p class="login-name">Email</p>
+              <input class="login-input" type="email" id="contactemail" name="login" class="txtbox" placeholder="Email" required/>
+              <p class="login-name">Phone Number</p>
+              <input class="login-input" type="phone" id="contactphone" name="password" class="txtbox" placeholder="Phone Number" required/>
+              <br/>
+              
+              <input type="submit" name="addcontact" value="Enter" class="btn" onclick="addContact()" />
+              <hr role="presentation">
+            </form>
+            <p class="login-name" id="addContactResult"></p>
+          </div>
+          <hr role="presentation">
+
+          <div class="table">
+            <table class="contact-list">
+              <thead class="list-item">
+                <tr>
+                  
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <ul id="contact-list">
+            <li class="list-item">
+              <p>
+                Brian Chang
+                <div class="list-details">
+                  <span>Email: brian.chang@example.com</span>
+                   <span>Phone: 555-1234</span>
+                </div>
+              </p>
+              <div class="list-functions">
+                <button class="btn btn-show" onclick="toggleDetails()">Show More</button><button class="btn btn-delete" onclick="deleteContact()">Delete</button>
+              </div>
+              
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
-
 </html>

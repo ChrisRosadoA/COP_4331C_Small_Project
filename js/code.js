@@ -12,8 +12,8 @@ function doLogin()
 	lastName = "";
 	
 	let login = document.getElementById("loginName").value;
-	let password = md5(document.getElementById("loginPassword").value);
-	// var hash = md5( password );
+	let password = document.getElementById("loginPassword").value;
+	var hash = md5( password );
 
 	console.log(login);
 	console.log(password);
@@ -21,11 +21,12 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	if (login == "" || password =="") {
-		document.getElementById("loginResult").innerHTML = "All fields are required";
-		return;
+		document.getElementById('loginResult').innerHTML = "Please fill out all the required fields.";
+        document.getElementById('loginResult').style.color = "red";
+        return;
 	}
 
-	let tmp = {login:login,password:password};
+	let tmp = {login:login,password:hash};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
@@ -193,4 +194,92 @@ function searchColor()
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
 	
+}
+
+
+// COLOR.HTML PAGE
+
+function toggleContact() {
+	let slider = document.getElementById("toggle-slider-contact");
+	let buttonVal = document.getElementById("toggle-button");
+
+
+	document.getElementById("addContactResult").innerHTML = "";
+	
+	// When slider is open, then close it
+	if (slider.classList.contains("open")) {
+		slider.style.display = "none";
+		slider.classList.remove("open");
+		buttonVal.innerHTML = "Add Contact";
+		//slider.style.height = "0px";
+		console.log("Closing");
+	} 
+	else {
+		slider.style.display = "block";
+		slider.classList.add("open");
+		
+		buttonVal.innerHTML = "Close";
+		//slider.style.height = "250px";
+		console.log("Opening");
+	}
+}
+
+function addContact() {
+	let first = document.getElementById("contactname").value;
+	let last = document.getElementById("contactlastname").value;
+	let email = document.getElementById("contactemail").value;
+	let phone = document.getElementById("contactphone").value;
+
+	
+
+	document.getElementById("addContactResult").innerHTML = "";
+
+	if (first == "" || last == "" || email == "" || phone == "") {
+		document.getElementById("addContactResult").innerHTML = "Please complete all fields";
+		document.getElementById("addContactResult").style.color = '#DE2C2C';
+		return;
+	}
+
+	let contact = {"FirstName": first, "LastName": last, "Email": email, "PhoneNumber": phone};
+	console.log(contact);
+
+	let jsonPayload = JSON.stringify(contact);
+
+	let url = urlBase + '/AddContact' + extension;
+
+	let xhr = new XMLHttpRequest();
+  	xhr.open("POST", url, true);
+  	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  	try
+  	{
+		console.log(xhr);
+  		xhr.onreadystatechange = function()
+  		{
+  			if (this.readyState == 4 && this.status == 200)
+  			{
+				document.getElementById("addContactResult").innerHTML = "Contact successfully added!";
+				document.getElementById("addContactResult").style.color = 'green';
+				
+				
+			}
+		};
+		xhr.send(jsonPayload);
+  	}
+  	catch(err)
+  	{
+  		document.getElementById("addContactResult").innerHTML = err.message;
+  	}
+	console.log(xhr);
+}
+
+// Loading contacts into the table from database
+
+let contactList = [];
+let index = 0;
+
+function showTable() {
+	let tmp = {userId:userId};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + ""
 }
