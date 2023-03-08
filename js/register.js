@@ -54,7 +54,7 @@ function register() {
     
 
     hash = md5(password);
-    let tmp = {userName: username, password: hash, firstName: firstName, lastName: lastName, email: email, phone: phone};
+    let tmp = {Username: username, Password: hash, FirstName: firstName, LastName: lastName, Email: email, Phone: phone};
 
     let jsonPayload = JSON.stringify(tmp);
 
