@@ -1,12 +1,14 @@
 <?php
 	$inData = getRequestInfo();
  
-        $FirstName = $inData["firstname"];
-        $LastName = $inData["lastname"];
-        $Login = $inData["login"];
-        $Password = $inData["password"];
+        $FirstName = $inData["FirstName"];
+        $LastName = $inData["LastName"];
+        $Login = $inData["Login"];
+        $Password = $inData["Password"];
+        $Email = $inData["Email"];
+        $PhoneNumber = $inData["PhoneNumber"];
 	
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -29,8 +31,8 @@
 		}
 
 		// Create new User
-		$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES(?,?,?,?)");
-		$stmt->bind_param("ssss", $FirstName, $LastName, $Login, $Password);
+		$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password,Email,PhoneNumber) VALUES(?,?,?,?,?,?)");
+		$stmt->bind_param("ssssss", $FirstName, $LastName, $Login, $Password, $Email, $PhoneNumber);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();

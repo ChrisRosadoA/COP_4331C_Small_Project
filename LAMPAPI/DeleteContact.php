@@ -3,7 +3,7 @@
 
 	$id = $inData["id"];
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager"); 	
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
