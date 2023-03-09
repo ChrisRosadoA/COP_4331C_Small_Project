@@ -319,7 +319,9 @@ function loadContacts(contactList) {
 
 
 function searchContact() {
-	let search = document.getElementById
+	let search = document.getElementById("search-bar").innerHTML;
+
+	
 }
 
 
