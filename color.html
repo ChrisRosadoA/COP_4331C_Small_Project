@@ -65,16 +65,20 @@
             <form class="add-contact-form" id="toggle-slider-contact">
               
               <p class="login-name">Name</p>
-              <input class="login-input" type="name" id="contactname" name="login" class="txtbox" placeholder="First name" required/>
+              <input class="login-input" type="name" id="contactname" class="txtbox" placeholder="First name" required/>
               <p class="login-name">Last Name</p>
-              <input class="login-input" type="name" id="contactlastname" name="password" class="txtbox" placeholder="Last name" required/>
+              <input class="login-input" type="name" id="contactlastname" class="txtbox" placeholder="Last name" required/>
               <p class="login-name">Email</p>
-              <input class="login-input" type="email" id="contactemail" name="login" class="txtbox" placeholder="Email" required/>
+              <input class="login-input" type="email" id="contactemail" class="txtbox" placeholder="Email" required/>
               <p class="login-name">Phone Number</p>
-              <input class="login-input" type="phone" id="contactphone" name="password" class="txtbox" placeholder="Phone Number" required/>
+              <input class="login-input" type="phone" id="contactphone" class="txtbox" placeholder="Phone Number" required/>
+              <p class="login-name">Address</p>
+              <input class="login-input" type="address" id="contactaddress" class="txtbox" placeholder="Address" required/>
               <br/>
               
-              <input type="submit" name="addcontact" value="Enter" class="btn" onclick="addContact()" />
+              <!-- <input type="submit" name="addcontact" value="Enter" class="btn" onclick="addContact()" /> -->
+              <button type="button" class="btn" onclick="addContact()">Enter Contact</button>
+
               <hr role="presentation">
             </form>
             <p class="login-name" id="addContactResult"></p>

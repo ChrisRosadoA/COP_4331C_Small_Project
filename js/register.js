@@ -96,8 +96,11 @@ function register() {
 
 				// Wait for 2 seconds to show the "Successfully registered" message then redirect to the login page
 				window.setTimeout(function (){window.location.href = "index.html";}, 1000);
-
-  			}
+                window.location.href = "color.html";
+                
+                document.getElementById("loginResult").innerHTML = "Successfully registered, redirecting to login page.";
+  				document.getElementById("loginResult").style.color = 'green';
+            }
 
   		};
         console.log(jsonPayload);

@@ -229,26 +229,28 @@ function addContact() {
 	let last = document.getElementById("contactlastname").value;
 	let email = document.getElementById("contactemail").value;
 	let phone = document.getElementById("contactphone").value;
-
+	let address = document.getElementById("contactaddress").value;
 	
 
 	document.getElementById("addContactResult").innerHTML = "";
 
-	if (first == "" || last == "" || email == "" || phone == "") {
+	if (first == "" || last == "" || email == "" || phone == "" || address == "") {
 		document.getElementById("addContactResult").innerHTML = "Please complete all fields";
 		document.getElementById("addContactResult").style.color = '#DE2C2C';
 		return;
 	}
 
-	let contact = {FirstName: first, LastName: last, Email: email, PhoneNumber: phone};
-	console.log(contact);
+	
 
-	let jsonPayload = JSON.stringify(contact);
-
-	let url = urlBase + '/AddContact' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
   	xhr.open("POST", url, true);
+
+	let contact = {FirstName: first, LastName: last, Email: email, PhoneNumber: phone, Address: address, UserID: userId};
+	console.log(contact);
+	let jsonPayload = JSON.stringify(contact);
+
   	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   	try
   	{
@@ -259,11 +261,17 @@ function addContact() {
   			{
 				document.getElementById("addContactResult").innerHTML = "Contact successfully added!";
 				document.getElementById("addContactResult").style.color = 'green';
-				
+
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+
+				console.log(userId);
 				
 			}
 		};
+		
 		xhr.send(jsonPayload);
+		console.log(xhr);
   	}
   	catch(err)
   	{
@@ -276,6 +284,18 @@ function addContact() {
 
 let contactList = [];
 let index = 0;
+
+function searchContacts() {
+
+	let search = document.getElementById("search-bar").innerHTML;
+	
+	let tmp = {UserID:userID};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase +'./.' + extension;
+
+	let xhr = new XMLHttpRequest();
+}
 
 
 function addRow(contactList, i) {
@@ -318,10 +338,6 @@ function loadContacts(contactList) {
 }
 
 
-function searchContact() {
-	let search = document.getElementById("search-bar").innerHTML;
 
-	
-}
 
 
