@@ -45,7 +45,7 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-		
+				
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -55,7 +55,13 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
+				// console.log(userId);
+				// console.log(firstName);
+				// console.log(lastName);
+
 				saveCookie();
+
+				// console.log(document.cookie);
 	
 				window.location.href = "color.html";
 			}
@@ -107,7 +113,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		// document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
 
@@ -200,6 +206,12 @@ function searchColor()
 // COLOR.HTML PAGE
 
 function toggleContact() {
+
+	// console.log(userId);
+	// console.log(firstName);
+	// console.log(lastName);
+	// console.log(document.cookie[2]);
+
 	let slider = document.getElementById("toggle-slider-contact");
 	let buttonVal = document.getElementById("toggle-button");
 
@@ -225,6 +237,9 @@ function toggleContact() {
 }
 
 function addContact() {
+
+	readCookie();
+
 	let first = document.getElementById("contactname").value;
 	let last = document.getElementById("contactlastname").value;
 	let email = document.getElementById("contactemail").value;
@@ -302,7 +317,7 @@ function addRow(contactList, i) {
 	
 	var fullName = contactList[i]["FirstName"] + contactList[i]["LastName"];
 
-	var phone = contactList[i]["PhoneNumber"];
+	var phoneNumber = contactList[i]["PhoneNumber"];
 	formated_phone = "("+phoneNumber.substring(0,3)+")"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,11);
 
 	var email = contactList[i]["Email"];
