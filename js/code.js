@@ -240,7 +240,7 @@ function addContact() {
 		return;
 	}
 
-	let contact = {"FirstName": first, "LastName": last, "Email": email, "PhoneNumber": phone};
+	let contact = {FirstName: first, LastName: last, Email: email, PhoneNumber: phone};
 	console.log(contact);
 
 	let jsonPayload = JSON.stringify(contact);
@@ -277,9 +277,49 @@ function addContact() {
 let contactList = [];
 let index = 0;
 
-function showTable() {
-	let tmp = {userId:userId};
-	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase + ""
+function addRow(contactList, i) {
+	
+	var fullName = contactList[i]["FirstName"] + contactList[i]["LastName"];
+
+	var phone = contactList[i]["PhoneNumber"];
+	formated_phone = "("+phoneNumber.substring(0,3)+")"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,11);
+
+	var email = contactList[i]["Email"];
+
+	var edit = "<td>"+
+					"<label for='editContact'>"+
+						"<svg class='iconTable' onclick='editClicked(" + contactList[i].ID + ");'>"+
+						"<use xlink:href='#icon-edit'></use>"+
+					"</label>"+
+					"<label> </label>"+
+					"<label for='deleteContact'>"+
+						"<svg class='iconTable' href = '#' onclick='deleteContact(" + contactList[i].ID + ");'>"+
+						"<use xlink:href='#icon-delete'></use>"+
+					"</label>"+
+				"</td>";
+
+	var row = "";
+	row += '<tr><td>' + fullName + '</td><td>' + formated_phone + '</td><td>' + email + '</td><td>' + edit;
+
+	return row;
+
 }
+
+function loadContacts(contactList) {
+	var html = document.getElementById("contactTable").innerHTML;
+
+	for (let i = 0; i < contactList.length; i++) {
+		row = appendRow(contactList, i);
+
+		html += row;
+	}
+	return html;
+}
+
+
+function searchContact() {
+	let search = document.getElementById
+}
+
+
