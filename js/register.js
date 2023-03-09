@@ -37,8 +37,9 @@ function register() {
         return;
     }
 
-    //Check if password or username is too short
+    if (email)
 
+    //Check if password or username is too short 
     if (username.length < 7) {
         document.getElementById('registerResult').innerHTML = "The username is too short.";
         document.getElementById('registerResult').style.color = "red";
@@ -54,7 +55,7 @@ function register() {
     
 
     hash = md5(password);
-    let tmp = {Username: username, Password: hash, FirstName: firstName, LastName: lastName, Email: email, Phone: phone};
+    let tmp = {Login: username, Password: hash, FirstName: firstName, LastName: lastName, Email: email, PhoneNumber: phone};
 
     let jsonPayload = JSON.stringify(tmp);
 
@@ -65,6 +66,7 @@ function register() {
   	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   	try
   	{
+        console.log(xhr);
   		xhr.onreadystatechange = function()
   		{
   			// Registered succesfully
@@ -98,6 +100,7 @@ function register() {
   			}
 
   		};
+        console.log(jsonPayload);
   		xhr.send(jsonPayload);
   	}
   	// Register not successful
@@ -105,6 +108,7 @@ function register() {
   	{
   		document.getElementById("registerResult").innerHTML= err.message;
   		document.getElementById("registerResult").style.color = '#E02745';
+        console.log("Could not register successfully.");
   	}
 
 
