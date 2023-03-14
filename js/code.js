@@ -282,18 +282,21 @@ function addContact() {
 				userId = jsonObject.id;
 
 				console.log(userId);
-				
+				showTable();
 			}
 		};
 		
 		xhr.send(jsonPayload);
+		
 		console.log(xhr);
+
   	}
   	catch(err)
   	{
   		document.getElementById("addContactResult").innerHTML = err.message;
   	}
 	console.log(xhr);
+	
 }
 
 function compareStrings(a, b) {
@@ -330,8 +333,8 @@ function showTable() {
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 
-				var table = document.getElementById("contactTable");
-				table.innerHTML = "<thead><tr></tr>";
+				var table = document.getElementById("contactList");
+				//table.innerHTML = "<thead><tr></tr>";
 
 
 				contactList = jsonObject.results;
@@ -349,7 +352,7 @@ function showTable() {
 
 					html = loadContacts(contactList);
 
-					document.getElementById("contactTable").innerHTML = html;
+					document.getElementById("contactList").innerHTML = html;
 				}
 			}
 		}
@@ -365,28 +368,35 @@ function showTable() {
 
 function addRow(contactList, i) {
 	
-	var fullName = contactList[i]["FirstName"] + contactList[i]["LastName"];
+	var fullName = contactList[i]["FirstName"] + " " + contactList[i]["LastName"];
 
 	var phoneNumber = contactList[i]["PhoneNumber"];
 	formated_phone = "("+phoneNumber.substring(0,3)+")"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,11);
 
 	var email = contactList[i]["Email"];
 
-	var edit = "<td>"+
-					"<label for='editContact'>"+
-						"<svg class='iconTable' onclick='editClicked(" + contactList[i].ID + ");'>"+
-						"<use xlink:href='#icon-edit'></use>"+
-					"</label>"+
-					"<label> </label>"+
-					"<label for='deleteContact'>"+
-						"<svg class='iconTable' href = '#' onclick='deleteContact(" + contactList[i].ID + ");'>"+
-						"<use xlink:href='#icon-delete'></use>"+
-					"</label>"+
-				"</td>";
+	var edit = "<li class='list-item'>"+
+					"<p>"+
+					fullName +
+						"<div class='list-details>" +
+							"<span id='email'" + i + ">" + 
+							email +
+							"</span>" + 
+							"<span id='phone'" + i + ">" + 
+							phoneNumber +
+							"</span>" + 
+						"</div>" +
+					"</p>" +
+					"<div class='list-functions'>" +
+						"<button class='btn btn-show' onClick='toggleDetails(" + i + ")'>Show More</button>" +
+						"<button class='btn btn-delete' onClick='deleteContact(" + contactList[i].ID + ")'>Delete</button>" +
+					"</div>" +
+				"</li>";
 
 	var row = "";
-	row += '<tr><td>' + fullName + '</td><td>' + formated_phone + '</td><td>' + email + '</td><td>' + edit;
-
+	// row += '<tr><td>' + fullName + '</td><td>' + formated_phone + '</td><td>' + email + '</td><td>' + edit;
+	 
+	row += edit;
 	return row;
 
 }
@@ -402,7 +412,37 @@ function loadContacts(contactList) {
 	return html;
 }
 
+function deleteContact(id) {
 
+	console.log(id);
+
+	let tmp = {ID:id};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = urlBase + "/DeleteContact." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try 
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				console.log("Deleting contact: " + id);
+
+				showTable();
+			}
+		}
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		console.log(err);
+	}
+}
 
 
 
