@@ -1,7 +1,7 @@
 <?php
 	$inData = getRequestInfo();
-        $userid = $inData["userid"];
-	$fullname = "%" . $inData["search"] . "%";
+        $userid = $inData["UserID"];
+	$fullname = "%" . $inData["Search"] . "%";
 
 	$searchResults = "";
 	$searchCount = 0;

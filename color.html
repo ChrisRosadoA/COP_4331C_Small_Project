@@ -16,6 +16,8 @@
         readCookie();
         showTable();
       }, false);
+
+      
     </script>
 
 	
@@ -57,7 +59,7 @@
 					<h1 class="login-title">Contacts</h1>
 
           <div class="search-add">
-            <input class="login-input" type="text" id="search-bar" name="search" class="txtbox" placeholder="Search..." />
+            <input class="login-input" type="text" id="searchBar" name="search" class="txtbox" onchange="searchContact()" placeholder="Search..." />
             <hr role="presentation">
 
             <button id="toggle-button" type="button" class="btn" onclick="toggleContact()">Add Contact</button>

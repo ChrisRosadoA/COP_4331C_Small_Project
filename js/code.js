@@ -278,18 +278,10 @@ function addContact() {
 				document.getElementById("addContactResult").innerHTML = "Contact successfully added!";
 				document.getElementById("addContactResult").style.color = 'green';
 
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-
-				console.log(userId);
 				showTable();
 			}
 		};
-		
 		xhr.send(jsonPayload);
-		
-		console.log(xhr);
-
   	}
   	catch(err)
   	{
@@ -313,8 +305,6 @@ let index = 0;
 let remaining = 0;
 
 function showTable() {
-
-	let search = document.getElementById("search-bar").innerHTML;
 	
 	let tmp = {userId:userId};
 	let jsonPayload = JSON.stringify(tmp);
@@ -336,9 +326,9 @@ function showTable() {
 				var table = document.getElementById("contactList");
 				//table.innerHTML = "<thead><tr></tr>";
 
-
-				contactList = jsonObject.results;
 				console.log(contactList);
+				contactList = jsonObject.results;
+				
 
 				if (!!contactList) {
 
@@ -358,6 +348,7 @@ function showTable() {
 		}
 
 		xhr.send(jsonPayload);
+
 	}
 	catch (err)
 	{
@@ -444,5 +435,59 @@ function deleteContact(id) {
 	}
 }
 
+function toggleDetails(id) {
+	console.log("togglind for contact: " + id);
+}
 
+
+function searchContact() {
+	
+	var input = document.getElementById("searchBar").value;
+
+	console.log(input);
+
+	let result = [];
+	
+	let tmp = {Search:input, UserID:userId};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + "/SearchContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+
+				var table = document.getElementById("contactTable");
+
+				result = jsonObject.results;
+
+				if (!!result) {
+					result = result.sort(function(a, b) {
+						return compareStrings(a["FirstName"], b["FirstName"]);
+					})
+
+					var html = "";
+
+					remaining = result.length;
+
+					html = loadContacts(result);
+
+					document.getElementById("contactTable").innerHTML = html;
+				}
+			}
+		}
+		xhr.send(jsonPayload);
+	} 
+	catch (err) 
+	{
+		console.log(err);
+	}
+
+}
 
