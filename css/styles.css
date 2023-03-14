@@ -83,21 +83,22 @@ body {
     color: red;
 }
 
-.btn {
-    font-family: spotify-circular, Helvetica, Arial, sans-serif;
-    color: #00ffff;
+.btn { /* Shared for all buttons except Register and Click here to Login */
+    /*font-family: spotify-circular, Helvetica, Arial, sans-serif;*/
+    font-family: sans-serif;
+    color: #CA4C9F; /* Font color*/
+    background-color: var(--background-base,#44F0C2); 
     text-align: center;
     text-transform: uppercase;
     transition: all 0.3s ease;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: bold;
     padding: 10px 20px;
     border: none;
     border-radius: 30px;
     width: 100%;
 }
-
 
 
 .btn-delete {
@@ -121,14 +122,10 @@ body {
     margin-top: 10px;
 }
 
-.btn-login {
+.btn-login { /* Click here to login button */
     color: var(--text-base,#000000); 
-    background-color: #00ffff;
-
-    <!-- background-color: #1db954;--> 
-
-
-
+    background-color: #ffffff;
+    
 
 }
 
