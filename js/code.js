@@ -114,7 +114,10 @@ function readCookie()
 	else
 	{
 		// document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		console.log("Logged in as " + firstName + " " + lastName + " with a user ID of " + userId);
 	}
+
+	
 }
 
 function doLogout()
@@ -238,8 +241,6 @@ function toggleContact() {
 
 function addContact() {
 
-	readCookie();
-
 	let first = document.getElementById("contactname").value;
 	let last = document.getElementById("contactlastname").value;
 	let email = document.getElementById("contactemail").value;
@@ -295,21 +296,70 @@ function addContact() {
 	console.log(xhr);
 }
 
+function compareStrings(a, b) {
+	a = a.toLowerCase();
+	b = b.toLowerCase();
+
+	return (a < b) ? -1 : (a > b) ? 1 : 0;
+}
+
 // Loading contacts into the table from database
 
 let contactList = [];
 let index = 0;
+let remaining = 0;
 
-function searchContacts() {
+function showTable() {
 
 	let search = document.getElementById("search-bar").innerHTML;
 	
-	let tmp = {UserID:userID};
+	let tmp = {userId:userId};
 	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase +'./.' + extension;
+	let url = urlBase +'/DisplayContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
+
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+	try 
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+
+				var table = document.getElementById("contactTable");
+				table.innerHTML = "<thead><tr></tr>";
+
+
+				contactList = jsonObject.results;
+				console.log(contactList);
+
+				if (!!contactList) {
+
+					contactList = contactList.sort(function(a, b) {
+						return compareStrings(a["FirstName"], b["FirstName"]);
+					})
+
+					var html = "";
+
+					remaining = contactList.length;
+
+					html = loadContacts(contactList);
+
+					document.getElementById("contactTable").innerHTML = html;
+				}
+			}
+		}
+
+		xhr.send(jsonPayload);
+	}
+	catch (err)
+	{
+		// document.getElementById()
+	}
 }
 
 
@@ -345,7 +395,7 @@ function loadContacts(contactList) {
 	var html = document.getElementById("contactTable").innerHTML;
 
 	for (let i = 0; i < contactList.length; i++) {
-		row = appendRow(contactList, i);
+		row = addRow(contactList, i);
 
 		html += row;
 	}
