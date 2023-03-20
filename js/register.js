@@ -1,4 +1,4 @@
-const urlBase = 'http://projectreich.com/LAMPAPI';
+const urlBase = 'https://projectreich.com/LAMPAPI';
 const extension = 'php';
 
 let error = "";

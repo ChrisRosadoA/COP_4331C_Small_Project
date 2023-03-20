@@ -1,4 +1,4 @@
-const urlBase = 'http://projectreich.com/LAMPAPI';
+const urlBase = 'https://projectreich.com/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -48,6 +48,7 @@ function doLogin()
 				
 				if( userId < 1 )
 				{		
+					document.getElementById("loginResult").style.color = 'red';
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
@@ -71,6 +72,7 @@ function doLogin()
 	catch(err)
 	{
 		console.log(err);
+		document.getElementById("addContactResult").style.color = 'red';
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
@@ -241,11 +243,11 @@ function toggleContact() {
 
 function addContact() {
 
-	let first = document.getElementById("contactname").value;
-	let last = document.getElementById("contactlastname").value;
-	let email = document.getElementById("contactemail").value;
-	let phone = document.getElementById("contactphone").value;
-	let address = document.getElementById("contactaddress").value;
+	let first = document.getElementById("addFirstName").value;
+	let last = document.getElementById("addLastName").value;
+	let email = document.getElementById("addEmail").value;
+	let phone = document.getElementById("addPhone").value;
+	let address = document.getElementById("addAddress").value;
 	
 
 	document.getElementById("addContactResult").innerHTML = "";
@@ -264,13 +266,13 @@ function addContact() {
   	xhr.open("POST", url, true);
 
 	let contact = {FirstName: first, LastName: last, Email: email, PhoneNumber: phone, Address: address, UserID: userId};
-	console.log(contact);
+	//console.log(contact);
 	let jsonPayload = JSON.stringify(contact);
 
   	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   	try
   	{
-		console.log(xhr);
+		//console.log(xhr);
   		xhr.onreadystatechange = function()
   		{
   			if (this.readyState == 4 && this.status == 200)
@@ -278,6 +280,7 @@ function addContact() {
 				document.getElementById("addContactResult").innerHTML = "Contact successfully added!";
 				document.getElementById("addContactResult").style.color = 'green';
 
+				console.log("updating new table");
 				showTable();
 			}
 		};
@@ -286,8 +289,9 @@ function addContact() {
   	catch(err)
   	{
   		document.getElementById("addContactResult").innerHTML = err.message;
+		console.log(err);
   	}
-	console.log(xhr);
+	//console.log(xhr);
 	
 }
 
@@ -326,8 +330,9 @@ function showTable() {
 				var table = document.getElementById("contactList");
 				//table.innerHTML = "<thead><tr></tr>";
 
-				console.log(contactList);
+				
 				contactList = jsonObject.results;
+				console.log(contactList);
 				
 
 				if (!!contactList) {
@@ -335,7 +340,8 @@ function showTable() {
 					contactList = contactList.sort(function(a, b) {
 						return compareStrings(a["FirstName"], b["FirstName"]);
 					})
-
+					
+					console.log("Loading table...");
 					var html = "";
 
 					remaining = contactList.length;
@@ -343,6 +349,19 @@ function showTable() {
 					html = loadContacts(contactList);
 
 					document.getElementById("contactList").innerHTML = html;
+				}
+				else {
+					document.getElementById("contactList").innerHTML = 
+					"<tr>" +
+						"<td><input id='addFirstName' placeholder='Add first name' ></td>" +
+						"<td><input id='addLastName' placeholder='Add last name'></td>" +
+						"<td><input id='addEmail' placeholder='Add email'></td>" +
+						"<td><input id='addPhone' placeholder='Add phone number'></td>" +
+						"<td><input id='addAddress' placeholder='Add address'></td>" +
+						"<td>" +
+							"<button class='btn' onclick='addContact()' id='addBtn'>Add Contact</button>" +
+						"</td>" +
+					"</tr>";
 				}
 			}
 		}
@@ -358,49 +377,56 @@ function showTable() {
 
 
 function addRow(contactList, i) {
-	
-	var fullName = contactList[i]["FirstName"] + " " + contactList[i]["LastName"];
+
+	var firstName = contactList[i]["FirstName"];
+
+	var lastName = contactList[i]["LastName"];
 
 	var phoneNumber = contactList[i]["PhoneNumber"];
-	formated_phone = "("+phoneNumber.substring(0,3)+")"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,11);
+	// formatted_phone = "("+phoneNumber.substring(0,3)+")"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,11);
 
 	var email = contactList[i]["Email"];
 
-	var edit = "<li class='list-item'>"+
-					"<p>"+
-					fullName +
-						"<div class='list-details>" +
-							"<span id='email'" + i + ">" + 
-							email +
-							"</span>" + 
-							"<span id='phone'" + i + ">" + 
-							phoneNumber +
-							"</span>" + 
-						"</div>" +
-					"</p>" +
-					"<div class='list-functions'>" +
-						"<button class='btn btn-show' onClick='toggleDetails(" + i + ")'>Show More</button>" +
-						"<button class='btn btn-delete' onClick='deleteContact(" + contactList[i].ID + ")'>Delete</button>" +
-					"</div>" +
-				"</li>";
+	var address = contactList[i]["Address"];
 
-	var row = "";
-	// row += '<tr><td>' + fullName + '</td><td>' + formated_phone + '</td><td>' + email + '</td><td>' + edit;
-	 
-	row += edit;
+	var row = "<tr class='' id='contact" + i + "'>" +
+					"<td><span id='contactFirstName" + i + "'>"   + firstName + "</span></td>" +
+					"<td><span id='contactLastName" + i + "'>"   + lastName + "</span></td>" +
+					"<td><span id='contactEmail" + i + "'>"   + email + "</span></td>" +
+					"<td><span id='contactPhone" + i + "'>"   + phoneNumber + "</span></td>" +
+					"<td><span id='contactAddress" + i + "'>"   + address + "</span></td>" +
+					"<td>" +
+						"<button class='btn-edit' onclick='editContact(" + i + "," + contactList[i]["ID"] + ")' id='editBtn" + i + "'>Edit</button>" +
+						"<button class='btn-delete' onclick='deleteContact(" + contactList[i]["ID"] + ")' id='deleteBtn" + i + "'>Delete</button>" +
+					"</td>" +
+				"</tr>";
+
 	return row;
 
 }
 
 function loadContacts(contactList) {
-	var html = document.getElementById("contactTable").innerHTML;
+	var html = "";
 
 	for (let i = 0; i < contactList.length; i++) {
 		row = addRow(contactList, i);
 
 		html += row;
 	}
-	return html;
+
+	var editRow = "<tr>" +
+						"<td><input id='addFirstName' placeholder='Add first name' ></td>" +
+						"<td><input id='addLastName' placeholder='Add last name'></td>" +
+						"<td><input id='addEmail' placeholder='Add email'></td>" +
+						"<td><input id='addPhone' placeholder='Add phone number'></td>" +
+						"<td><input id='addAddress' placeholder='Add address'></td>" +
+						"<td>" +
+							"<button class='btn' onclick='addContact()' id='addBtn'>Add Contact</button>" +
+						"</td>" +
+					"</tr>";
+
+
+	return html + editRow;
 }
 
 function deleteContact(id) {
@@ -437,6 +463,17 @@ function deleteContact(id) {
 
 function toggleDetails(id) {
 	console.log("togglind for contact: " + id);
+
+	var listItem = document.getElementById("info" + id);
+
+	if (listItem.style.display == "none") {
+		console.log("Showing contact " + id + " data");
+		listItem.style.display = "block";
+	}
+	else {
+		console.log("closing contact " + id + " data");
+		listItem.style.display = "none";
+	}
 }
 
 
@@ -463,7 +500,7 @@ function searchContact() {
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 
-				var table = document.getElementById("contactTable");
+				var table = document.getElementById("contactList");
 
 				result = jsonObject.results;
 
@@ -478,7 +515,7 @@ function searchContact() {
 
 					html = loadContacts(result);
 
-					document.getElementById("contactTable").innerHTML = html;
+					document.getElementById("contactList").innerHTML = html;
 				}
 			}
 		}
@@ -489,5 +526,117 @@ function searchContact() {
 		console.log(err);
 	}
 
+}
+
+
+function editContact(id, contactId) {
+
+	console.log("Editting contact " + id);
+
+	var row = document.getElementById("contact" + id);
+	
+
+	var button = document.getElementById("editBtn" + id);
+
+	var firstNameElem = document.getElementById("contactFirstName" + id);
+	var lastNameElem = document.getElementById("contactLastName" + id);
+	var emailElem = document.getElementById("contactEmail" + id);
+	var phoneElem = document.getElementById("contactPhone" + id);
+	var addressElem = document.getElementById("contactAddress" + id);
+
+	var firstNameVal = document.getElementById("contactFirstName" + id).innerHTML;
+	var lastNameVal = document.getElementById("contactLastName" + id).innerHTML;
+	var emailVal = document.getElementById("contactEmail" + id).innerHTML;
+	var phoneVal = document.getElementById("contactPhone" + id).innerHTML;
+	var addressVal = document.getElementById("contactAddress" + id).innerHTML;
+
+	// console.log(row);
+	// console.log("this is the first val"+firstNameVal)
+
+
+	if (row.classList.contains("editing")) {
+
+		
+
+		
+
+		var editFirstName = document.getElementById("editFirstName" + id).value;
+		var editLastName = document.getElementById("editLastName" + id).value;
+		var editEmail = document.getElementById("editEmail" + id).value;
+		var editPhone = document.getElementById("editPhone" + id).value;
+		var editAddress = document.getElementById("editAddress" + id).value;
+
+		if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
+			document.getElementById("addContactResult").innerHTML = "Please complete all fields";
+			document.getElementById("addContactResult").style.color = 'red';
+			return;
+		}
+
+		firstNameElem.innerHTML = editFirstName;
+		lastNameElem.innerHTML = editLastName;
+		emailElem.innerHTML = editEmail;
+		phoneElem.innerHTML = editPhone;
+		addressElem.innerHTML = editAddress;
+
+		
+		
+		console.log("Finished editing");
+
+		row.classList.toggle("editing");
+
+		button.innerHTML = "Edit";
+	}
+	else {
+
+		row.classList.toggle("editing");
+
+		button.innerHTML = "Done";
+
+		// console.log(" Adding input eleemnts now ");
+		// console.log(firstNameElem.innerHTML);
+		firstNameElem.innerHTML = "<input type='firstName' id='editFirstName" + id + "' placeholder='Add first name' value='" + firstNameVal + "'>";
+		lastNameElem.innerHTML = "<input type='lastName' id='editLastName" + id + "' placeholder='Add last name' value='" + lastNameVal + "'>";
+		emailElem.innerHTML = "<input type='email' id='editEmail" + id + "' placeholder='Add email' value='" + emailVal + "'>";
+		phoneElem.innerHTML = "<input type='phone' id='editPhone" + id + "' placeholder='Add phone number' value='" + phoneVal + "'>";
+		addressElem.innerHTML = "<input type='address' id='editAddress" + id + "' placeholder='Add address' value='" + addressVal + "'>";
+
+		
+
+		console.log("Started editing");
+	}
+	// console.log(firstNameElem)
+	// console.log(row);
+
+	
+
+
+
+	let tmp = {firstname: editFirstName, lastname: editLastName, phone: editPhone, email: editEmail, address: editAddress, id: contactId};
+	
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/UpdateContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+  	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  	try
+  	{
+  		xhr.onreadystatechange = function()
+  		{
+  			if (this.readyState == 4 && this.status == 200)
+  			{
+				document.getElementById("addContactResult").innerHTML = "Contact successfully updated!";
+				document.getElementById("addContactResult").style.color = 'green';
+				
+				showTable();	// Show added contact to the table
+			}
+		};
+		xhr.send(jsonPayload);
+  	}
+  	catch(err)
+  	{
+  		document.getElementById("addContactResult").innerHTML = err.message;
+  	}
 }
 

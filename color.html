@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
+	<title>COP 4331 Small Project</title>
+      <meta charset="UTF-8">
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
-  <script src="https://kit.fontawesome.com/040d09d5dd.js" crossorigin="anonymous"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed--> 
-    <link href="css/galaxyStyle.css" rel="stylesheet"> <!-- Animated Background --> 
-    <link href="css/styles.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed-->
+                                            
+    <link href="css/galaxyStyle.css" rel="stylesheet"> <!-- Animated Background -->
+
+    <link href="css/styles.css" rel="stylesheet">	
 
     <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function() 
-      {
-        readCookie();
-        showTable();
-      }, false);
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+      readCookie();
+      showTable();
+    }, false);
 
       
     </script>
-
-	
-   <!--   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> -->
-
-   <!-- <link rel="stylesheet" type="text/css" href="register-styles.css" /> -->
-
-
 </head>
 <body class="bg">
 
@@ -47,13 +42,13 @@
 
 <div id="mtnZZZ"></div>
 
-<!--End of Animated Background -->
 
 
 
 
 	<div class="root">
-		<div< class="container">
+    
+		<div class="container">
 			<div class="login-container">
 				<div class="login-form">    
 					<h1 class="login-title">Contacts</h1>
@@ -78,7 +73,6 @@
               <input class="login-input" type="address" id="contactaddress" class="txtbox" placeholder="Address" required/>
               <br/>
               
-              <!-- <input type="submit" name="addcontact" value="Enter" class="btn" onclick="addContact()" /> -->
               <button type="button" class="btn" onclick="addContact()">Enter Contact</button>
 
               <hr role="presentation">
@@ -86,33 +80,14 @@
             <p class="login-name" id="addContactResult"></p>
           </div>
           <hr role="presentation">
-
-          <div class="table">
-            <table class="contact-list" id="contactTable">
-              <thead class="list-item">
-                <tr>
-                  
-                </tr>
-              </thead>
-            </table>
-          </div>
+          
           <ul id="contactList">
-            <!-- <li class="list-item">
-              <p>
-                Brian Chang
-                <div class="list-details">
-                  <span>Email: brian.chang@example.com</span>
-                   <span>Phone: 555-1234</span>
-                </div>
-              </p>
-              <div class="list-functions">
-                <button class="btn btn-show" onclick="toggleDetails()">Show More</button><button class="btn btn-delete" onclick="deleteContact()">Delete</button>
-              </div>
-            </li> -->
+            
           </ul>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
