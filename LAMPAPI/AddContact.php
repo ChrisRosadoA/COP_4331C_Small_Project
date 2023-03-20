@@ -1,14 +1,14 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$firstname = $inData["firstname"];
-	$lastname = $inData["lastname"];
-	$phone = $inData["phone"];
-	$email = $inData["email"];
-	$address = $inData["address"];
-	$userid = $inData["userid"];
+	$firstname = $inData["FirstName"];
+	$lastname = $inData["LastName"];
+	$phone = $inData["PhoneNumber"];
+	$email = $inData["Email"];
+	$address = $inData["Address"];
+	$userid = $inData["UserID"];
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );

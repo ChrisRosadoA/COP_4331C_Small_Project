@@ -1,12 +1,12 @@
 <?php
 	$inData = getRequestInfo();
-        $userid = $inData["userid"];
-	$fullname = "%" . $inData["search"] . "%";
+        $userid = $inData["UserID"];
+	$fullname = "%" . $inData["Search"] . "%";
 
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );

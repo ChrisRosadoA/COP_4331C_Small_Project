@@ -1,34 +1,51 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
+	<title>Contact Manager</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styles.css" rel="stylesheet">	
-	<!-- <link href="./LAMPAPI/Login.php" rel="stylesheet">	 -->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+
 </head>
 <body class="bg">
-	<div class="root">
-		<div< class="container">
-			<div class="login-container">
-				<div class="login-form">
-					<h1 class="login-title">Messenger App</h1>
-					<form class="inputs" id="loginResult" action="./LAMPAPI/Login.php" method="POST">
-						<p class="login-name">Username</p>
-						<input class="login-input" type="username" id="loginName" name="login" class="txtbox" placeholder="Username" required/>
-						<p class="login-name">Password</p>
-						<input class="login-input" type="password" id="loginPassword" name="password" class="txtbox" placeholder="Password" required/>
-						<br/>
-						<input type="submit" name="login" value="Login" class="btn btn-login" onclick="doLogin()" />
-						<!-- <input type="submit" name="login" value="Login" class="btn btn-login" /> -->
-						<!-- <button type="button" class="btn" onclick="doLogin()">Login</button> -->
-					</form>
-					<hr role="presentation">
-					<h2>Don't have an account?</h2>
-					<button class="btn btn-register" type="button" onclick="location.href='register.html'">Register</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contact Manager</h1>
+                
+    </header>
+
+
+    <!-- Login Window -->
+    <div class="login-window">
+        <h1>Login</h1>
+
+        <form>
+
+            <div class="txt-field">
+                <label>Username</label>
+                <input placeholder="Username" id="loginName" type="username">
+            </div>
+
+            <div class="txt-field">
+                <label>Password</label>
+                <input placeholder="Password" id="loginPassword" type="password">  
+            </div>
+
+            <p id="loginResult"></p>
+
+            <button type="button" class="login-button" onclick="doLogin()">Login</button>
+
+            <div class="signup-field">
+                Not signed up? <a href="register.html">Sign up</a>
+            </div>
+
+        </form>
+    </div>
+
 </body>
 </html>
