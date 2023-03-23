@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+:root {
+    --button-color: rgb(67, 149, 243, 1);
+    --button-hover: rgb(67, 149, 243, 0.6);;
+    --background-color: linear-gradient(#e66465, #9198e5);
+    --window-color: rgba(0, 0, 0, 0.3);
+    --text-color: white;
+}
+
+html {
+    height: 100%;
+}
+
 body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #24252a;
+    background: var(--background-color);
+    /* background-color: #24252a; */
     font-family: "Montserrat", sans-serif;
 }
 
@@ -12,7 +25,7 @@ li, a, button {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
-    color: #edf0f1;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -22,7 +35,7 @@ header {
     text-align: center;
     align-items: center;
     padding: 20px 5%;
-    color: white;
+    color: var(--text-color);
 }
 
 header button {
@@ -49,12 +62,12 @@ a {
 }
 
 a:hover {
-    color: #0088a9;
+    color: var(--button-hover);
 }
 
 button {
     padding: 9px 25px;
-    background-color: rgba(0, 136, 169, 1);
+    background-color: var(--button-color);
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -62,18 +75,18 @@ button {
 }
 
 button:hover {
-    background-color: rgba(0, 136, 169, 0.8);
+    background-color: var(--button-hover);
 }
 
 
 .login-window {
-    color: white;
+    color: var(--text-color);
     position: absolute;
     bottom: 40%;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 400px;
-    background-color: black;
+    background-color: var(--window-color);
     border-radius: 10px;
 }
 
