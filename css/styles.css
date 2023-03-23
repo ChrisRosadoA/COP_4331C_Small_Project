@@ -1,11 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 :root {
-    --button-color: rgb(67, 149, 243, 1);
-    --button-hover: rgb(67, 149, 243, 0.6);;
-    --background-color: linear-gradient(#e66465, #9198e5);
-    --window-color: rgba(0, 0, 0, 0.3);
+    /* General */
+    --background-color: linear-gradient(#e1b5fb, #ffcbcb);
     --text-color: white;
+
+    /* Login and Register */
+    --window-color: rgba(0, 0, 0, 0.3);
+
+    --button-color: rgb(67, 149, 243, 1); /* also for add and logout */
+    --button-hover: rgb(67, 149, 243, 0.6);;
+
+    /* Contact Page */
+    --table-header-color: rgba(0, 0, 0, 0.2);
+    --table-odd-row-color: rgba(0, 0, 0, 0.2);
+    --table-even-row-color: rgba(0, 0, 0, 0.2);
+    
+    --edit-button-color: rgba(0, 0, 0, 0.1);
+    --edit-button-hover: rgba(0, 0, 0, 0.6);
+
+    --delete-button-color: rgba(0, 0, 0, 0.1);
+    --delete-button-hover: rgba(0, 0, 0, 0.6);
+
 }
 
 html {
@@ -124,9 +140,6 @@ input {
     border-radius: 10px;
 }
 
-
-
-
 .login-button {
     width: 100%;
 }
@@ -139,19 +152,23 @@ input {
 .container {
     display: flex;
     justify-content: center;
+    border-radius: 10px;
 }
 
 
 .contact-table {
     border-collapse: collapse;
-    margin: 25px 0;
+    border-radius: 7px;
+    overflow: hidden;
+    color: var(--text-color);
+    margin: auto 0;
     font-size: 0.9em;
     position: absolute;
     top: 20%;
 }
 
 .contact-table thead tr {
-    background-color: #000000;
+    background-color: var(--table-header-color);
     color: white;
     text-align: left;
     font-weight: bold;
@@ -159,6 +176,7 @@ input {
 
 .contact-table th, .contact-table td {
     padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
 }
 
 .contact-table tbody tr {
@@ -166,28 +184,26 @@ input {
 }
 
 .contact-table tbody tr:nth-of-type(even) {
-    background-color: #a3a4af;
+    background-color: var(--table-even-row-color);
 }
 .contact-table tbody tr:nth-of-type(odd) {
-    background-color: #5c5e69;
+    background-color: var(--table-odd-row-color);
 }
 .contact-table tbody tr:last-of-type {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--table-header-color);
 }
 
 .btn-edit {
-    background-color: yellow;
-    color: black;
+    background-color: var(--edit-button-color);
 }
 .btn-edit:hover {
-    background-color: rgba(255, 255, 0, 0.5);
+    background-color: var(--edit-button-hover);
 }
 .btn-delete {
-    background-color: red;
-    color: black;
+    background-color: var(--delete-button-color);
 }
 .btn-delete:hover {
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: var(--delete-button-hover);
 }
 
 .search-bar {
