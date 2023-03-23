@@ -95,8 +95,10 @@ function register() {
                 document.getElementById('phoneNumber').value = "";
 
 				// Wait for 2 seconds to show the "Successfully registered" message then redirect to the login page
-				window.setTimeout(function (){window.location.href = "index.html";}, 1000);
-                window.location.href = "color.html";
+				// window.setTimeout(function (){window.location.href = "index.html";}, 1000);
+                // window.location.href = "color.html";
+
+                window.location.href = "login.html";
                 
                 document.getElementById("loginResult").innerHTML = "Successfully registered, redirecting to login page.";
   				document.getElementById("loginResult").style.color = 'green';
@@ -116,4 +118,29 @@ function register() {
 
 
     console.log(tmp);
+}
+
+function isValidEmail(email) {
+    // Regular expression pattern for validating email
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Return whether the email matches the pattern
+    return pattern.test(email);
+}
+
+function formatPhoneNumber(phoneNumber) {
+    // Remove all non-digit characters from the phone number string
+    const digits = phoneNumber.replace(/\D/g, '');
+    
+    // Check if the digits string has the correct length for a phone number
+    if (digits.length !== 10) {
+      // Return -1 to indicate an invalid phone number format
+      return -1;
+    }
+    
+    // Format the digits string as a phone number
+    const formattedPhoneNumber = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6, 10)}`;
+    
+    // Return the formatted phone number string
+    return formattedPhoneNumber;
 }
