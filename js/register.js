@@ -52,6 +52,18 @@ function register() {
         return;
     }
 
+    // check email
+    if (!isValidEmail(email)) {
+        document.getElementById('registerResult').innerHTML = "The email is invalid.";
+        return;
+    }
+    
+    // check phone
+    if (formatPhoneNumber(phoneNumber) == -1) {
+        document.getElementById('registerResult').innerHTML = "The phone number is invalid.";
+        return;
+    }
+
     
 
     hash = md5(password);

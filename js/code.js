@@ -426,7 +426,7 @@ function loadContacts(contactList) {
 					"</tr>";
 
 
-	return html + editRow;
+	return editRow + html;
 }
 
 function deleteContact(id) {
@@ -449,7 +449,11 @@ function deleteContact(id) {
 			if (this.readyState == 4 && this.status == 200)
 			{
 				console.log("Deleting contact: " + id);
+				let confirmation = confirm("Do you want to delete this contact?");
 
+				if (confirmation == false) {
+					return;
+				}
 				showTable();
 			}
 		}
