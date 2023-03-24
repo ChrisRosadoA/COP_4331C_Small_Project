@@ -165,6 +165,7 @@ input {
     font-size: 0.9em;
     position: absolute;
     top: 20%;
+
 }
 
 .contact-table thead tr {
@@ -174,10 +175,26 @@ input {
     font-weight: bold;
 }
 
+
 .contact-table th, .contact-table td {
-    padding: 12px 15px;
+    /* display: inline-block; */
+    padding: 8px 8px;
     border-bottom: 1px solid #dddddd;
+    word-wrap: break-word;
+    /* overflow: hidden; */
+    overflow-wrap: break-word;
+
+    /* text-overflow: ellipsis; */
 }
+
+.contact-table td input {
+    width: 100%;
+}
+
+
+
+
+
 
 .contact-table tbody tr {
     border-bottom: 1px solid #dddddd;
@@ -208,6 +225,44 @@ input {
 
 .search-bar {
     width: 30%;
-    height: 10%;
+    height: 20%;
+    top: 30%;
     font-size: 20px;
+}
+
+
+@media (max-height: 800px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+    .contact-table {
+        top: 30%;
+    }
+}
+@media (max-width: 600px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+
+    .contact-table {
+        width: 100%;
+        /* overflow-x: auto; */
+        /* overflow-wrap: break-word; */
+        table-layout: fixed;
+        overflow-x: auto;
+    }
+
+    .contact-table td button {
+        /* text-overflow: ellipsis; */
+        height: 100%;
+        padding: 4px;
+    }
+
+    html {
+        font-size: 10px;
+    }
+
+    button {
+        font-size: 10px;
+    }
+
+    input {
+        font-size: 10px;
+    }
 }
