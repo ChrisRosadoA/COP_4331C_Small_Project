@@ -78,6 +78,16 @@ function doLogin()
 
 }
 
+// Event handler for the input element
+const inputElement = document.querySelector('#username-input');
+
+inputElement.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) {
+    // Call the doLogin() function
+    doLogin();
+  }
+});
+
 function saveCookie()
 {
 	let minutes = 20;
