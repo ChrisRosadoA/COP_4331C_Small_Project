@@ -2,25 +2,25 @@
 
 :root {
     /* General */
-    --background-color: linear-gradient(#e1b5fb, #ffcbcb);
+    --background-color: linear-gradient(#dca9fa, #fba7a7);
     --text-color: white;
 
     /* Login and Register */
-    --window-color: rgba(0, 0, 0, 0.3);
+    --window-color: rgba(0, 0, 0, 0.25);
 
-    --button-color: rgb(67, 149, 243, 1); /* also for add and logout */
-    --button-hover: rgb(67, 149, 243, 0.6);;
+    --button-color: rgba(112, 179, 255, 0.6); /* also for add and logout */
+    --button-hover: rgba(158, 203, 254, 0.8);
 
     /* Contact Page */
-    --table-header-color: rgba(0, 0, 0, 0.2);
-    --table-odd-row-color: rgba(0, 0, 0, 0.2);
-    --table-even-row-color: rgba(0, 0, 0, 0.2);
+    --table-header-color: rgba(0, 0, 0, 0.25);
+    --table-odd-row-color: rgba(0, 0, 0, 0.25);
+    --table-even-row-color: rgba(0, 0, 0, 0.25);
     
-    --edit-button-color: rgba(0, 0, 0, 0.1);
-    --edit-button-hover: rgba(0, 0, 0, 0.6);
+    --edit-button-color: rgba(255, 204, 122, 0.659);
+    --edit-button-hover: rgba(255, 233, 172, 0.6);
 
-    --delete-button-color: rgba(0, 0, 0, 0.1);
-    --delete-button-hover: rgba(0, 0, 0, 0.6);
+    --delete-button-color: rgba(255, 150, 150, 0.75);
+    --delete-button-hover: rgba(248, 190, 190, 0.6);
 
 }
 html {
@@ -35,10 +35,12 @@ body {
     background: var(--background-color);
     /* background-color: #24252a; */
     font-family: "Montserrat", sans-serif;
+    background-attachment: fixed;
+    padding-bottom: 50px;
 }
 
 .spacer {
-    height: 100px;
+    padding-bottom: 50px;
 }
 
 li, a, button {
@@ -137,6 +139,10 @@ form .txt-field {
     margin: 30px 0;
 }
 
+.register-window form .txt-field{
+    margin: 20px 0;
+}
+
 input {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -144,7 +150,7 @@ input {
     border: none;
     outline: none;
     border-radius: 5px;
-    background: white;
+    background-color: white;
 }
 
 .txt-field input {
@@ -168,19 +174,19 @@ input {
     display: flex;
     justify-content: center;
     border-radius: 10px;
+    position: relative; /* Add relative position */
+    /* height: calc(100vh - 100px); Set height to fill screen, adjust as needed  */
+    overflow-y: auto; /* Add overflow-y property for scrolling */
 }
-
 
 .contact-table {
     border-collapse: collapse;
     border-radius: 7px;
-    overflow: hidden;
     color: var(--text-color);
     margin: auto 0;
     font-size: 0.9em;
-    position: absolute;
-    top: 20%;
-
+    max-height: 500px;
+    overflow: hidden;
 }
 
 .contact-table thead tr {
@@ -192,6 +198,7 @@ input {
 
 
 .contact-table th, .contact-table td {
+
     /* display: inline-block; */
     padding: 8px 8px;
     border-bottom: 1px solid #dddddd;
@@ -223,6 +230,7 @@ input {
 }
 .contact-table tbody tr:last-of-type {
     border-bottom: 2px solid var(--table-header-color);
+    padding-bottom: 50px;
 }
 
 .btn-edit {
@@ -239,13 +247,18 @@ input {
 }
 
 .search-bar {
-    min-width: 200px;
-    width: 30%;
+    min-width: 250px;
+    width: 25%;
     height: 20%;
     top: 30%;
     font-size: 20px;
+    margin-bottom: 20px;
 }
 
+p {
+    display: flex;
+    justify-content: center;
+}
 
 @media (max-height: 800px) {
     /* CSS that should be displayed if width is equal to or less than 800px goes here */

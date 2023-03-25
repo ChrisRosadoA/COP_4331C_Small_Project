@@ -129,6 +129,10 @@ function register() {
                 document.getElementById("loginResult").innerHTML = "Successfully registered, redirecting to login page.";
   				document.getElementById("loginResult").style.color = 'green';
             }
+            else if (this.status == 409) {
+                document.getElementById("loginResult").innerHTML = "This username is already in use.";
+  				document.getElementById("loginResult").style.color = 'red';
+            }
 
   		};
         console.log(jsonPayload);

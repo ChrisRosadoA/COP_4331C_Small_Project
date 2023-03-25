@@ -332,14 +332,32 @@ function compareStrings(a, b) {
 	a = a.toLowerCase();
 	b = b.toLowerCase();
 
-	return (a < b) ? -1 : (a > b) ? 1 : 0;
+	if (ascending)
+		return (a < b) ? -1 : (a > b) ? 1 : 0;
+	else 
+		return (a > b) ? -1 : (a < b) ? 1 : 0;
 }
+
+function compareNums(a, b) {
+	a = a.replace(/\D/g, '');
+	b = b.replace(/\D/g, '');
+
+	if (ascending)
+		return (a < b) ? -1 : (a > b) ? 1 : 0;
+	else 
+		return (a > b) ? -1 : (a < b) ? 1 : 0;
+}
+
+
+
 
 // Loading contacts into the table from database
 
-let contactList = [];
 let index = 0;
 let remaining = 0;
+
+let sortType = 0; // 0 for first name, 1 for last name, 2 for email, 3 for phone, 4 for address
+let ascending = true; // 0 for ascending, 1 for descending
 
 function showTable() {
 	
@@ -364,8 +382,8 @@ function showTable() {
 				//table.innerHTML = "<thead><tr></tr>";
 
 				
-				contactList = jsonObject.results;
-				console.log(contactList);
+				// contactList = jsonObject.results;
+				// console.log(contactList);
 
 				console.log(jsonObject.results);
 				
@@ -373,7 +391,18 @@ function showTable() {
 				if (!!jsonObject.results) {
 
 					jsonObject.results = jsonObject.results.sort(function(a, b) {
-						return compareStrings(a["FirstName"], b["FirstName"]);
+						switch(sortType) {
+							case 0: 
+								return compareStrings(a["FirstName"], b["FirstName"]);
+							case 1:
+								return compareStrings(a["LastName"], b["LastName"]);
+							case 2:
+								return compareStrings(a["Email"], b["Email"]);
+							case 3:
+								return compareNums(a["PhoneNumber"], b["PhoneNumber"]);
+							case 4:
+								return compareStrings(a["Address"], b["Address"]);
+						}
 					})
 					
 					console.log("Loading table...");
@@ -410,7 +439,17 @@ function showTable() {
 	}
 }
 
+// sets the sorting type to the input
+function setSortType(val) {
+	if (sortType == val) ascending = !ascending;
 
+	sortType = val;
+
+	showTable();
+}
+
+
+//Appends row to the inner html of the table
 function addRow(contactList, i) {
 
 	var firstName = contactList[i]["FirstName"];
@@ -440,6 +479,7 @@ function addRow(contactList, i) {
 
 }
 
+//Loads contacts from the appened tables. Puts the edit row as the first entry
 function loadContacts(contactList) {
 	var html = "";
 
@@ -461,9 +501,10 @@ function loadContacts(contactList) {
 					"</tr>";
 
 
-	return editRow + html;
+	return editRow + html; //putting edit row as the first entry
 }
 
+//Deletes contact based on database id
 function deleteContact(id) {
 
 	console.log(id);
@@ -500,6 +541,7 @@ function deleteContact(id) {
 	}
 }
 
+//Toggles contact edit mode specific to contact
 function toggleDetails(id) {
 	console.log("togglind for contact: " + id);
 
@@ -515,7 +557,7 @@ function toggleDetails(id) {
 	}
 }
 
-
+//Searches for contacts based on query string from input field
 function searchContact() {
 	
 	var input = document.getElementById("searchBar").value;
@@ -567,7 +609,7 @@ function searchContact() {
 
 }
 
-
+// Edits contact list 
 function editContact(id, contactId) {
 
 	console.log("Editting contact " + id);
