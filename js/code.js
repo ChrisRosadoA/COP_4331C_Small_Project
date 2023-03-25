@@ -332,20 +332,28 @@ function compareStrings(a, b) {
 	a = a.toLowerCase();
 	b = b.toLowerCase();
 
-	if (ascending)
+	if (ascending) {
+		console.log("ascending");
 		return (a < b) ? -1 : (a > b) ? 1 : 0;
-	else 
+	}
+	else {
+		console.log("descending");
 		return (a > b) ? -1 : (a < b) ? 1 : 0;
+	}	
 }
 
 function compareNums(a, b) {
 	a = a.replace(/\D/g, '');
 	b = b.replace(/\D/g, '');
 
-	if (ascending)
+	if (ascending) {
+		console.log("ascending");
 		return (a < b) ? -1 : (a > b) ? 1 : 0;
-	else 
+	}
+	else {
+		console.log("descending");
 		return (a > b) ? -1 : (a < b) ? 1 : 0;
+	}	
 }
 
 
@@ -441,10 +449,13 @@ function showTable() {
 
 // sets the sorting type to the input
 function setSortType(val) {
+	//swap to descending order if input is already sorted ascending
+	console.log(sortType + " " + val);
 	if (sortType == val) ascending = !ascending;
+	else ascending = true; //default is ascending
 
 	sortType = val;
-
+	
 	showTable();
 }
 
