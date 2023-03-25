@@ -11,13 +11,13 @@
 
     <link href="css/styles.css" rel="stylesheet">	
 
-    <script type="text/javascript">
-    // document.addEventListener('DOMContentLoaded', function() 
-    // {
-    //   readCookie();
-    //   showTable();
-    // }, false);
-    </script>
+    <!-- <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+      readCookie();
+      showTable();
+    }, false);
+    </script> -->
 </head>
 <body>
     <!-- Navigation And Logout-->
@@ -31,7 +31,7 @@
 
     <!-- Search Bar -->
     <div class="container">
-        <input class="search-bar" type="search" placeholder="Search..." id="searchBar" onchange="searchContact()">
+        <input class="search-bar" type="search" placeholder="Search..." id="searchBar" onkeyup="searchContact()">
     </div>
 
     
@@ -50,12 +50,12 @@
                 </tr>
             </thead>
             <tbody id="contactList">
-                <tr>
-                    <td>Brian</td>
-                    <td>Chang</td>
-                    <td>brimatt062495@gmail.com</td>
-                    <td>561 400-1305</td>
-                    <td>6109 Old Court Road</td>
+                <!-- <tr>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>jdoe@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
                     <td>
                         <button class="btn-edit" onclick="editContact()">Edit</button>
                         <button class="btn-delete" onclick="deleteContact()">Delete</button>
@@ -68,7 +68,7 @@
                     <td><input></td>
                     <td><input></td>
                     <td><button class="btn" onclick="addContact()">Add</button></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <p id="addContactResult"></p>

@@ -23,18 +23,22 @@
     --delete-button-hover: rgba(0, 0, 0, 0.6);
 
 }
-
 html {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
+    height: 100%;
     margin: 0;
     padding: 0;
     background: var(--background-color);
     /* background-color: #24252a; */
     font-family: "Montserrat", sans-serif;
+}
+
+.spacer {
+    height: 100px;
 }
 
 li, a, button {
@@ -98,7 +102,7 @@ button:hover {
 .login-window {
     color: var(--text-color);
     position: absolute;
-    bottom: 40%;
+    bottom: 50%;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 400px;
@@ -106,15 +110,26 @@ button:hover {
     border-radius: 10px;
 }
 
-.login-window h1 {
+.login-window h1, .register-window h1 {
     text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid silver;
 }
 
-.login-window form {
+.login-window form, .register-window form {
     padding: 0 40px;
     box-sizing: border-box;
+}
+
+.register-window {
+    color: var(--text-color);
+    position: absolute;
+    bottom: 45%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 400px;
+    background-color: var(--window-color);
+    border-radius: 10px;
 }
 
 form .txt-field {
@@ -224,6 +239,7 @@ input {
 }
 
 .search-bar {
+    min-width: 200px;
     width: 30%;
     height: 20%;
     top: 30%;
@@ -255,6 +271,10 @@ input {
     }
 
     html {
+        font-size: 10px;
+    }
+
+    a {
         font-size: 10px;
     }
 

@@ -65,6 +65,9 @@ function doLogin()
 				// console.log(document.cookie);
 	
 				window.location.href = "color.html";
+
+				document.getElementById("addContactResult").style.color = 'green';
+				document.getElementById("addContactResult").innerHTML = "Welcome " + firstName + " " + lastName + " here are your contacts.";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -79,14 +82,20 @@ function doLogin()
 }
 
 // Event handler for the input element
-const inputElement = document.querySelector('#username-input');
+const loginElement = document.getElementById('loginResult');
+const passwordElement = document.getElementById('loginResult');
 
-inputElement.addEventListener('keydown', (event) => {
-  if (event.keyCode === 13) {
-    // Call the doLogin() function
-    doLogin();
-  }
-});
+// loginElement.addEventListener('keydown', (event) => {
+// 	if (event.keyCode === 13) {
+// 		doLogin();
+// 	}
+// });
+
+// passwordElement.addEventListener('keydown', (event) => {
+// 	if (event.keyCode === 13) {
+// 		doLogin();
+// 	}
+// });
 
 function saveCookie()
 {
@@ -262,12 +271,26 @@ function addContact() {
 
 	document.getElementById("addContactResult").innerHTML = "";
 
+	//Check if edit credentials are valid
+
 	if (first == "" || last == "" || email == "" || phone == "" || address == "") {
 		document.getElementById("addContactResult").innerHTML = "Please complete all fields";
 		document.getElementById("addContactResult").style.color = '#DE2C2C';
 		return;
 	}
+	
+	if (!isValidEmail(email)) {
+		document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
+		document.getElementById("addContactResult").style.color = 'red';
+		return;
+	}
 
+	if (formatPhoneNumber(phone) == -1) {
+		document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
+		document.getElementById("addContactResult").style.color = 'red';
+		return;
+	}
+	phone = formatPhoneNumber(phone);
 	
 
 	let url = urlBase + '/AddContact.' + extension;
@@ -343,20 +366,22 @@ function showTable() {
 				
 				contactList = jsonObject.results;
 				console.log(contactList);
+
+				console.log(jsonObject.results);
 				
 
-				if (!!contactList) {
+				if (!!jsonObject.results) {
 
-					contactList = contactList.sort(function(a, b) {
+					jsonObject.results = jsonObject.results.sort(function(a, b) {
 						return compareStrings(a["FirstName"], b["FirstName"]);
 					})
 					
 					console.log("Loading table...");
 					var html = "";
 
-					remaining = contactList.length;
+					remaining = jsonObject.results.length;
 
-					html = loadContacts(contactList);
+					html = loadContacts(jsonObject.results);
 
 					document.getElementById("contactList").innerHTML = html;
 				}
@@ -431,7 +456,7 @@ function loadContacts(contactList) {
 						"<td><input id='addPhone' placeholder='Add phone number'></td>" +
 						"<td><input id='addAddress' placeholder='Add address'></td>" +
 						"<td>" +
-							"<button class='btn' onclick='addContact()' id='addBtn'>Add Contact</button>" +
+							"<button class='btn' onclick='addContact()' id='addBtn'>Add</button>" +
 						"</td>" +
 					"</tr>";
 
@@ -548,7 +573,6 @@ function editContact(id, contactId) {
 	console.log("Editting contact " + id);
 
 	var row = document.getElementById("contact" + id);
-	
 
 	var button = document.getElementById("editBtn" + id);
 
@@ -567,12 +591,7 @@ function editContact(id, contactId) {
 	// console.log(row);
 	// console.log("this is the first val"+firstNameVal)
 
-
 	if (row.classList.contains("editing")) {
-
-		
-
-		
 
 		var editFirstName = document.getElementById("editFirstName" + id).value;
 		var editLastName = document.getElementById("editLastName" + id).value;
@@ -580,19 +599,29 @@ function editContact(id, contactId) {
 		var editPhone = document.getElementById("editPhone" + id).value;
 		var editAddress = document.getElementById("editAddress" + id).value;
 
+		//Check if edit credentials are valid
 		if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
 			document.getElementById("addContactResult").innerHTML = "Please complete all fields";
 			document.getElementById("addContactResult").style.color = 'red';
 			return;
 		}
+		if (!isValidEmail(editEmail)) {
+			document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
+			document.getElementById("addContactResult").style.color = 'red';
+        	return;
+		}
+		if (formatPhoneNumber(editPhone) == -1) {
+			document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
+			document.getElementById("addContactResult").style.color = 'red';
+			return;
+		}
+		editPhone = formatPhoneNumber(editPhone);
 
 		firstNameElem.innerHTML = editFirstName;
 		lastNameElem.innerHTML = editLastName;
 		emailElem.innerHTML = editEmail;
 		phoneElem.innerHTML = editPhone;
 		addressElem.innerHTML = editAddress;
-
-		
 		
 		console.log("Finished editing");
 
@@ -618,12 +647,6 @@ function editContact(id, contactId) {
 
 		console.log("Started editing");
 	}
-	// console.log(firstNameElem)
-	// console.log(row);
-
-	
-
-
 
 	let tmp = {firstname: editFirstName, lastname: editLastName, phone: editPhone, email: editEmail, address: editAddress, id: contactId};
 	
@@ -652,5 +675,28 @@ function editContact(id, contactId) {
   	{
   		document.getElementById("addContactResult").innerHTML = err.message;
   	}
+}
+
+
+function isValidEmail(email) {
+    //regex
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return pattern.test(email);
+}
+
+function formatPhoneNumber(phoneNumber) {
+    
+    const digits = phoneNumber.replace(/\D/g, '');
+    
+    
+    if (digits.length !== 10) {
+      // Return -1 to indicate an invalid phone number format
+      return -1;
+    }
+    
+    const formattedPhoneNumber = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6, 10)}`;
+    
+    return formattedPhoneNumber;
 }
 

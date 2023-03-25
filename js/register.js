@@ -29,6 +29,20 @@ function register() {
         return;
     }
 
+    //check if username has spaces
+    if (username.includes(" ")) {
+        document.getElementById('registerResult').innerHTML = "Username cannot have spaces.";
+        document.getElementById('registerResult').style.color = "red";
+        return;
+    }
+
+    //check if username has spaces
+    if (password.includes(" ")) {
+        document.getElementById('registerResult').innerHTML = "Password cannot have spaces.";
+        document.getElementById('registerResult').style.color = "red";
+        return;
+    }
+
 
     //Check if password is same as repeat
     if (password != repeatPassword) {
@@ -36,8 +50,6 @@ function register() {
         document.getElementById('registerResult').style.color = "red";
         return;
     }
-
-    if (email)
 
     //Check if password or username is too short 
     if (username.length < 7) {
@@ -54,16 +66,18 @@ function register() {
 
     // check email
     if (!isValidEmail(email)) {
-        document.getElementById('registerResult').innerHTML = "The email is invalid.";
+        document.getElementById('registerResult').innerHTML = "The email is not in a valid format.";
+        document.getElementById('registerResult').style.color = "red";
         return;
     }
     
     // check phone
-    if (formatPhoneNumber(phoneNumber) == -1) {
+    if (formatPhoneNumber(phone) == -1) {
         document.getElementById('registerResult').innerHTML = "The phone number is invalid.";
+        document.getElementById('registerResult').style.color = "red";
         return;
     }
-
+    phone = formatPhoneNumber(phone);
     
 
     hash = md5(password);
@@ -133,26 +147,23 @@ function register() {
 }
 
 function isValidEmail(email) {
-    // Regular expression pattern for validating email
+    //regex
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Return whether the email matches the pattern
     return pattern.test(email);
 }
 
 function formatPhoneNumber(phoneNumber) {
-    // Remove all non-digit characters from the phone number string
+    
     const digits = phoneNumber.replace(/\D/g, '');
     
-    // Check if the digits string has the correct length for a phone number
+    
     if (digits.length !== 10) {
       // Return -1 to indicate an invalid phone number format
       return -1;
     }
     
-    // Format the digits string as a phone number
     const formattedPhoneNumber = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6, 10)}`;
     
-    // Return the formatted phone number string
     return formattedPhoneNumber;
 }
