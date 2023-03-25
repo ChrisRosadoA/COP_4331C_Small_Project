@@ -129,7 +129,7 @@ button:hover {
     bottom: 45%;
     left: 50%;
     transform: translate(-50%, 50%);
-    width: 400px;
+    width: 370px;
     background-color: var(--window-color);
     border-radius: 10px;
 }
@@ -265,8 +265,11 @@ p {
     .contact-table {
         top: 30%;
     }
+    .register-window {
+        bottom: 30%;
+    }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     /* CSS that should be displayed if width is equal to or less than 800px goes here */
 
     .contact-table {
@@ -297,5 +300,13 @@ p {
 
     input {
         font-size: 14px;
+    }
+
+    .contact-table {
+        font-size: 10px;
+    }
+
+    .contact-table a {
+        font-size: 11px;
     }
 }

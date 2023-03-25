@@ -66,8 +66,6 @@ function doLogin()
 	
 				window.location.href = "color.html";
 
-				document.getElementById("addContactResult").style.color = 'green';
-				document.getElementById("addContactResult").innerHTML = "Welcome " + firstName + " " + lastName + " here are your contacts.";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -136,6 +134,9 @@ function readCookie()
 	{
 		// document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 		console.log("Logged in as " + firstName + " " + lastName + " with a user ID of " + userId);
+
+		document.getElementById("addContactResult").style.color = 'green';
+		document.getElementById("addContactResult").innerHTML = "Welcome " + firstName + " " + lastName + ", here are your contacts.";
 	}
 
 	
@@ -360,7 +361,7 @@ function compareNums(a, b) {
 
 
 // Loading contacts into the table from database
-
+let numOfContacts = 0;
 let index = 0;
 let remaining = 0;
 
@@ -389,7 +390,7 @@ function showTable() {
 				var table = document.getElementById("contactList");
 				//table.innerHTML = "<thead><tr></tr>";
 
-				
+				numOfContacts = jsonObject.results.length;
 				// contactList = jsonObject.results;
 				// console.log(contactList);
 
@@ -518,7 +519,13 @@ function loadContacts(contactList) {
 //Deletes contact based on database id
 function deleteContact(id, name) {
 
-	let confirmation = confirm("Do you want to remove " + name + " from your contacts?");
+	if (currentlyEditting != -1) {
+		document.getElementById('addContactResult').innerHTML = "Please finish editting current contact.";
+		document.getElementById("addContactResult").style.color = 'red';
+		return;
+	}
+
+	let confirmation = confirm("Are you sure you want to remove " + name + " from your contacts?");
 
 	if (confirmation == false) {
 		return;

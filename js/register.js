@@ -17,8 +17,11 @@ function register() {
     username = document.getElementById('username').value;
     password = document.getElementById('loginPassword').value;
     repeatPassword = document.getElementById('repeatPassword').value;
-    email = document.getElementById('email').value;
-    phone = document.getElementById('phoneNumber').value;
+    // email = document.getElementById('email').value;
+    // phone = document.getElementById('phoneNumber').value;
+
+    email = "dummy@gmail.com";
+    phone = "123 456 7890";
 
     document.getElementById('registerResult').innerHTML = "";
 
@@ -65,18 +68,18 @@ function register() {
     }
 
     // check email
-    if (!isValidEmail(email)) {
-        document.getElementById('registerResult').innerHTML = "The email is not in a valid format.";
-        document.getElementById('registerResult').style.color = "red";
-        return;
-    }
+    // if (!isValidEmail(email)) {
+    //     document.getElementById('registerResult').innerHTML = "The email is not in a valid format.";
+    //     document.getElementById('registerResult').style.color = "red";
+    //     return;
+    // }
     
     // check phone
-    if (formatPhoneNumber(phone) == -1) {
-        document.getElementById('registerResult').innerHTML = "The phone number is invalid.";
-        document.getElementById('registerResult').style.color = "red";
-        return;
-    }
+    // if (formatPhoneNumber(phone) == -1) {
+    //     document.getElementById('registerResult').innerHTML = "The phone number is invalid.";
+    //     document.getElementById('registerResult').style.color = "red";
+    //     return;
+    // }
     phone = formatPhoneNumber(phone);
     
 
