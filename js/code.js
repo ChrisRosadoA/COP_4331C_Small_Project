@@ -482,7 +482,7 @@ function addRow(contactList, i) {
 					"<td><span id='contactAddress" + i + "'>"   + address + "</span></td>" +
 					"<td>" +
 						"<button class='btn-edit' onclick='editContact(" + i + "," + contactList[i]["ID"] + ")' id='editBtn" + i + "'>Edit</button>" +
-						"<button class='btn-delete' onclick='deleteContact(" + contactList[i]["ID"] + ")' id='deleteBtn" + i + "'>Delete</button>" +
+						"<button class='btn-delete' onclick='deleteContact(" + contactList[i]["ID"] + "," + '"' + contactList[i]["FirstName"] + " " + contactList[i]["LastName"] + '"' + ")' id='deleteBtn" + i + "'>Delete</button>" +
 					"</td>" +
 				"</tr>";
 
@@ -516,7 +516,13 @@ function loadContacts(contactList) {
 }
 
 //Deletes contact based on database id
-function deleteContact(id) {
+function deleteContact(id, name) {
+
+	let confirmation = confirm("Do you want to remove " + name + " from your contacts?");
+
+	if (confirmation == false) {
+		return;
+	}
 
 	console.log(id);
 
@@ -536,11 +542,7 @@ function deleteContact(id) {
 			if (this.readyState == 4 && this.status == 200)
 			{
 				console.log("Deleting contact: " + id);
-				let confirmation = confirm("Do you want to delete this contact?");
-
-				if (confirmation == false) {
-					return;
-				}
+				
 				showTable();
 			}
 		}
@@ -620,9 +622,14 @@ function searchContact() {
 
 }
 
+// Store variable for contact currently being editted
+let currentlyEditting = -1;
+
 // Edits contact list 
 function editContact(id, contactId) {
 
+	console.log("Currently editting contact: " + currentlyEditting);
+	
 	console.log("Editting contact " + id);
 
 	var row = document.getElementById("contact" + id);
@@ -641,65 +648,72 @@ function editContact(id, contactId) {
 	var phoneVal = document.getElementById("contactPhone" + id).innerHTML;
 	var addressVal = document.getElementById("contactAddress" + id).innerHTML;
 
-	// console.log(row);
-	// console.log("this is the first val"+firstNameVal)
-
-	if (row.classList.contains("editing")) {
-
-		var editFirstName = document.getElementById("editFirstName" + id).value;
-		var editLastName = document.getElementById("editLastName" + id).value;
-		var editEmail = document.getElementById("editEmail" + id).value;
-		var editPhone = document.getElementById("editPhone" + id).value;
-		var editAddress = document.getElementById("editAddress" + id).value;
-
-		//Check if edit credentials are valid
-		if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
-			document.getElementById("addContactResult").innerHTML = "Please complete all fields";
-			document.getElementById("addContactResult").style.color = 'red';
-			return;
-		}
-		if (!isValidEmail(editEmail)) {
-			document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
-			document.getElementById("addContactResult").style.color = 'red';
-        	return;
-		}
-		if (formatPhoneNumber(editPhone) == -1) {
-			document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
-			document.getElementById("addContactResult").style.color = 'red';
-			return;
-		}
-		editPhone = formatPhoneNumber(editPhone);
-
-		firstNameElem.innerHTML = editFirstName;
-		lastNameElem.innerHTML = editLastName;
-		emailElem.innerHTML = editEmail;
-		phoneElem.innerHTML = editPhone;
-		addressElem.innerHTML = editAddress;
+	if (currentlyEditting == -1 || currentlyEditting == id) {
 		
-		console.log("Finished editing");
+		if (row.classList.contains("editing")) {
 
-		row.classList.toggle("editing");
-
-		button.innerHTML = "Edit";
+			var editFirstName = document.getElementById("editFirstName" + id).value;
+			var editLastName = document.getElementById("editLastName" + id).value;
+			var editEmail = document.getElementById("editEmail" + id).value;
+			var editPhone = document.getElementById("editPhone" + id).value;
+			var editAddress = document.getElementById("editAddress" + id).value;
+	
+			//Check if edit credentials are valid
+			if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
+				document.getElementById("addContactResult").innerHTML = "Please complete all fields";
+				document.getElementById("addContactResult").style.color = 'red';
+				return;
+			}
+			if (!isValidEmail(editEmail)) {
+				document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
+				document.getElementById("addContactResult").style.color = 'red';
+				return;
+			}
+			if (formatPhoneNumber(editPhone) == -1) {
+				document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
+				document.getElementById("addContactResult").style.color = 'red';
+				return;
+			}
+			editPhone = formatPhoneNumber(editPhone);
+	
+			firstNameElem.innerHTML = editFirstName;
+			lastNameElem.innerHTML = editLastName;
+			emailElem.innerHTML = editEmail;
+			phoneElem.innerHTML = editPhone;
+			addressElem.innerHTML = editAddress;
+			
+			console.log("Finished editing");
+	
+			row.classList.toggle("editing");
+	
+			button.innerHTML = "Edit";
+	
+		}
+		else {
+	
+			row.classList.toggle("editing");
+	
+			button.innerHTML = "Done";
+	
+			// console.log(" Adding input eleemnts now ");
+			// console.log(firstNameElem.innerHTML);
+			firstNameElem.innerHTML = "<input type='firstName' id='editFirstName" + id + "' placeholder='Add first name' value='" + firstNameVal + "'>";
+			lastNameElem.innerHTML = "<input type='lastName' id='editLastName" + id + "' placeholder='Add last name' value='" + lastNameVal + "'>";
+			emailElem.innerHTML = "<input type='email' id='editEmail" + id + "' placeholder='Add email' value='" + emailVal + "'>";
+			phoneElem.innerHTML = "<input type='phone' id='editPhone" + id + "' placeholder='Add phone number' value='" + phoneVal + "'>";
+			addressElem.innerHTML = "<input type='address' id='editAddress" + id + "' placeholder='Add address' value='" + addressVal + "'>";
+	
+			console.log("Started editing");
+							
+			currentlyEditting = id;
+		}
 	}
 	else {
-
-		row.classList.toggle("editing");
-
-		button.innerHTML = "Done";
-
-		// console.log(" Adding input eleemnts now ");
-		// console.log(firstNameElem.innerHTML);
-		firstNameElem.innerHTML = "<input type='firstName' id='editFirstName" + id + "' placeholder='Add first name' value='" + firstNameVal + "'>";
-		lastNameElem.innerHTML = "<input type='lastName' id='editLastName" + id + "' placeholder='Add last name' value='" + lastNameVal + "'>";
-		emailElem.innerHTML = "<input type='email' id='editEmail" + id + "' placeholder='Add email' value='" + emailVal + "'>";
-		phoneElem.innerHTML = "<input type='phone' id='editPhone" + id + "' placeholder='Add phone number' value='" + phoneVal + "'>";
-		addressElem.innerHTML = "<input type='address' id='editAddress" + id + "' placeholder='Add address' value='" + addressVal + "'>";
-
-		
-
-		console.log("Started editing");
+		document.getElementById('addContactResult').innerHTML = "Please finish editting current contact.";
+		document.getElementById("addContactResult").style.color = 'red';
+		return;
 	}
+
 
 	let tmp = {firstname: editFirstName, lastname: editLastName, phone: editPhone, email: editEmail, address: editAddress, id: contactId};
 	
@@ -718,6 +732,9 @@ function editContact(id, contactId) {
   			{
 				document.getElementById("addContactResult").innerHTML = "Contact successfully updated!";
 				document.getElementById("addContactResult").style.color = 'green';
+
+				currentlyEditting = -1;
+				console.log("Contact successfully updated... currentlyEditting: " + currentlyEditting);
 				
 				showTable();	// Show added contact to the table
 			}
