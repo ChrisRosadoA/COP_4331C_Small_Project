@@ -1,140 +1,316 @@
-body 
-{
-    background-color: #707070;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    /* General */
+    --background-color: linear-gradient(#dca9fa, #fba7a7);
+    --text-color: white;
+
+    /* Login and Register */
+    --window-color: rgba(0, 0, 0, 0.25);
+
+    --button-color: rgba(112, 179, 255, 0.6); /* also for add and logout */
+    --button-hover: rgba(158, 203, 254, 0.8);
+
+    /* Contact Page */
+    --table-header-color: rgba(0, 0, 0, 0.25);
+    --table-odd-row-color: rgba(0, 0, 0, 0.25);
+    --table-even-row-color: rgba(0, 0, 0, 0.25);
+    
+    --edit-button-color: rgba(255, 204, 122, 0.659);
+    --edit-button-hover: rgba(255, 233, 172, 0.6);
+
+    --delete-button-color: rgba(255, 150, 150, 0.75);
+    --delete-button-hover: rgba(248, 190, 190, 0.6);
+
+}
+html {
+    min-height: 100%;
 }
 
-#title 
-{
-    font-size: 40px;
+body {
+    /* box-sizing: border-box; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    /* background-color: #24252a; */
+    font-family: "Montserrat", sans-serif;
+    background-attachment: fixed;
+    padding-bottom: 50px;
+}
+
+.spacer {
+    padding-bottom: 50px;
+}
+
+li, a, button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    padding: 20px 5%;
+    color: var(--text-color);
+}
+
+header button {
+    justify-content: left;
+    right: 5%;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+a {
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+a:hover {
+    color: var(--button-hover);
+}
+
+button {
+    padding: 9px 25px;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+
+.login-window {
+    color: var(--text-color);
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 400px;
+    background-color: var(--window-color);
+    border-radius: 10px;
+}
+
+.login-window h1, .register-window h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+.login-window form, .register-window form {
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.register-window {
+    color: var(--text-color);
+    position: absolute;
+    bottom: 45%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 370px;
+    background-color: var(--window-color);
+    border-radius: 10px;
+}
+
+form .txt-field {
+    position: relative;
+    margin: 30px 0;
+}
+
+.register-window form .txt-field{
+    margin: 20px 0;
+}
+
+input {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.txt-field input {
     width: 100%;
-    margin: 2% 5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+    padding: 0px 5px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
 }
 
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+.login-button {
+    width: 100%;
 }
 
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.buttons:hover{
-    background-color: #00d5124f;
-    color: #FFFFFF;
-    opacity: 50%;
-}
-
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
-}
-
-input[type="text"],input[type="password"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
+.signup-field {
+    margin: 30px 0;
     text-align: center;
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+.result {
+    padding: 7px 0;
 }
 
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
+.container {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    position: relative; /* Add relative position */
+    /* height: calc(100vh - 100px); Set height to fill screen, adjust as needed  */
+    overflow-y: auto; /* Add overflow-y property for scrolling */
 }
 
-#colorSearchResult{
-    display: none;
+.contact-table {
+    border-collapse: collapse;
+    border-radius: 7px;
+    color: var(--text-color);
+    margin: auto 0;
+    font-size: 0.9em;
+    max-height: 500px;
+    overflow: hidden;
 }
 
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+.contact-table thead tr {
+    background-color: var(--table-header-color);
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+
+.contact-table th, .contact-table td {
+
+    /* display: inline-block; */
+    padding: 8px 8px;
+    border-bottom: 1px solid #dddddd;
+    word-wrap: break-word;
+    /* overflow: hidden; */
+    overflow-wrap: break-word;
+
+    /* text-overflow: ellipsis; */
+}
+
+.contact-table td input {
+    width: 100%;
+}
+
+
+
+
+
+
+.contact-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.contact-table tbody tr:nth-of-type(even) {
+    background-color: var(--table-even-row-color);
+}
+.contact-table tbody tr:nth-of-type(odd) {
+    background-color: var(--table-odd-row-color);
+}
+.contact-table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--table-header-color);
+    padding-bottom: 50px;
+}
+
+.btn-edit {
+    background-color: var(--edit-button-color);
+}
+.btn-edit:hover {
+    background-color: var(--edit-button-hover);
+}
+.btn-delete {
+    background-color: var(--delete-button-color);
+}
+.btn-delete:hover {
+    background-color: var(--delete-button-hover);
+}
+
+.search-bar {
+    min-width: 250px;
+    width: 25%;
+    height: 20%;
+    top: 30%;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-height: 800px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+    .contact-table {
+        top: 30%;
+    }
+    .register-window {
+        bottom: 30%;
+    }
+}
+@media (max-width: 700px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+
+    .contact-table {
+        width: 100%;
+        /* overflow-x: auto; */
+        /* overflow-wrap: break-word; */
+        table-layout: fixed;
+        overflow-x: auto;
+    }
+
+    .contact-table td button {
+        /* text-overflow: ellipsis; */
+        height: 100%;
+        padding: 4px;
+    }
+
+    html {
+        font-size: 14px;
+    }
+
+    a {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    .contact-table {
+        font-size: 10px;
+    }
+
+    .contact-table a {
+        font-size: 11px;
+    }
 }

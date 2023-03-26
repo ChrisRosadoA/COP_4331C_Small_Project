@@ -1,40 +1,122 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
+	<title>COP 4331 Small Project</title>
+      <meta charset="UTF-8">
+	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
+    <script src="https://kit.fontawesome.com/040d09d5dd.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
-	</script>
-	
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+      readCookie();
+      showTable();
+    }, false);
+    </script>
 </head>
 <body>
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contacts</h1>
+                
+        <a class="cta" href="#"><button onclick="doLogout()">Log Out</button></a>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+    </header>
 
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-</div>
+    <!-- Search Bar -->
+    <div class="container">
+        <input class="search-bar" type="search" placeholder="Search..." id="searchBar" onkeyup="searchContact()">
+    </div>
 
-<div id="accessUIDiv">
-	<br />
+    <!-- Response Messages -->
+    <p class="contact-response" id="addContactResult"></p>
+    
+    <!-- Contact Listing -->
+    <div class="container">
 
-	<input type="text" id="searchText" placeholder="Color To Search For"/>
-	<button type="button" id="searchColorButton" class="buttons" onclick="searchColor();"> Search Color </button><br />
-	<span id="colorSearchResult"></span>
-	<p id="colorList">
-	</p><br /><br />
+        <table class="contact-table">
+            <thead id="contactHeader">
+                <tr>
+                    <th><a onclick="setSortType(0)">First Name</a></th>
+                    <th><a onclick="setSortType(1)">Last Name</a></th>
+                    <th><a onclick="setSortType(2)">Email</a></th>
+                    <th><a onclick="setSortType(3)">Phone</a></th>
+                    <th><a onclick="setSortType(4)">Address</a></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="contactList">
+                <!-- <tr>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>jdoe@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr>
+                <tr>
+                    <td>John</td>
+                    <td>Smith</td>
+                    <td>jsmith@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr>
+                <tr>
+                    <td>Noah</td>
+                    <td>Smith</td>
+                    <td>nsmith@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr> -->
+            </tbody>
+        </table>
+        
+            
+    </div>
 
-	<input type="text" id="colorText" placeholder="Color To Add">
-	<button type="button" id="addColorButton" class="buttons" onclick="addColor();"> Add Color </button><br />
-	<span id="colorAddResult"></span>
-</div>
+    <div class="spacer">
+        
+    </div>
 
 </body>
-</html>

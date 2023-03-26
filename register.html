@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact Manager</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/styles.css" rel="stylesheet">	
+
+    <script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/register.js"></script>
+</head>
+<body class="bg">
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contact Manager</h1>
+                
+    </header>
+
+
+    <!-- Register Window -->
+    <div class="register-window">
+        <h1>Sign Up</h1>
+
+        <form>
+
+            <div class="txt-field">
+                <label>First Name</label>
+                <input placeholder="Enter a first name" id="firstName" type="firstName">
+            </div>
+
+            <div class="txt-field">
+                <label>Last Name</label>
+                <input placeholder="Enter a last name" id="lastName" type="lastName">
+            </div>
+
+            <div class="txt-field">
+                <label>Username</label>
+                <input placeholder="Enter a username" id="username" type="username">
+            </div>
+
+            <div class="txt-field">
+                <label>Password</label>
+                <input placeholder="Enter a password" id="loginPassword" type="password">
+            </div>
+
+            <div class="txt-field">
+                <label>Confirm Password</label>
+                <input placeholder="Enter password again" id="repeatPassword" type="password">
+            </div>
+            
+            <!-- <div class="txt-field">
+                <label>Email</label>
+                <input placeholder="Enter an email" id="email" type="email">
+            </div>
+
+            <div class="txt-field">
+                <label>Phone Number</label>
+                <input placeholder="Enter a phone number" id="phoneNumber" type="phoneNumber">
+            </div> -->
+
+            <p class="result" id="registerResult"></p>
+
+            <button type="button" class="login-button" onclick="register()">Sign up</button>
+
+            <div class="signup-field">
+                Already have an account? <a href="index.html">Log in</a>
+            </div>
+
+        </form>
+        
+    </div>
+    <div class="spacer">
+
+    </div>
+</body>
+</html>
