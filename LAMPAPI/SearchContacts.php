@@ -6,15 +6,15 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ?) AND UserID=?");
-		$stmt->bind_param("ssi", $fullname, $fullname, $userid);
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR PhoneNumber like ? OR Email like ? OR Address like ?) AND UserID=?");
+		$stmt->bind_param("sssssi", $fullname, $fullname, $fullname, $fullname, $fullname, $userid);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		

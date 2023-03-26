@@ -1,84 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>COP 4331 Small Project</title>
-      <meta charset="UTF-8">
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-
-    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed-->
-                                            
-    <link href="css/galaxyStyle.css" rel="stylesheet"> <!-- Animated Background -->
-
+	<title>Contact Manager</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/styles.css" rel="stylesheet">	
 
-
-<style type= "text/css"> <!-- Broken -->
-
-.btn-login{
-border-color: #ffffff;
-}
-
-</style>
-
-
-
+    <script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
 
 </head>
-
-
 <body class="bg">
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contact Manager</h1>
+                
+    </header>
 
-<!--Beginning of Animated Background -->
 
+    <!-- Login Window -->
+    <div class="login-window">
+        <h1>Login</h1>
 
-<div id="hey"><div id="layer-up"></div></div>
-<div id="layer-0">
-	
-	<div id="layer-1">
-		<div id="layer-2">
-			<div id="lines">
-				<div id="layer-corner"></div>
-			</div>
-		</div>
-	</div>
-</div>
+        <form>
 
-<div id="mtnZZZ"></div>
+            <div class="txt-field">
+                <label>Username</label>
+                <input placeholder="Username" id="loginName" type="username">
+            </div>
 
-<!--End of Animated Background -->
+            <div class="txt-field">
+                <label>Password</label>
+                <input placeholder="Password" id="loginPassword" type="password">  
+            </div>
 
-<!--Single background music-->
-<audio src="your audio file path.mp3" loop autoplay ></audio>
+            <p class="result" id="loginResult"></p>
 
-	<div class="root">
-		<div< class="container">
-			<div class="login-container">
-				<div class="login-form">
+            <button type="button" class="login-button" onclick="doLogin()">Login</button>
 
-					<h1 class="login-title">Contact Manager</h1>
+            <div class="signup-field">
+                Don't have an account? <a href="register.html">Sign up</a>
+            </div>
 
-					<!-- <h1 class="login-title">Contact Manager</h1> -->
-					<form class="inputs" id="login">
-						<p class="login-name">Username</p>
-						<input class="login-input" type="username" id="loginName" name="login" class="txtbox" placeholder="Username" required/>
-						<p class="login-name">Password</p>
-						<input class="login-input" type="password" id="loginPassword" name="password" class="txtbox" placeholder="Password" required/>
-						<!-- <input type="submit" name="login" value="Login" class="btn btn-login" onclick="doLogin()" /> -->
-						
-						<p class="error" id="loginResult"></p>
-						<!-- <input type="submit" name="login" value="Login" class="btn btn-login" onclick="doLogin()"/> -->
-						<button type="button" class="btn" onclick="doLogin()"  >Login</button>
-					</form>
-					<hr role="presentation">
-					<h2>Don't have an account?</h2>
-					<button class="btn btn-register" type="button" onclick="location.href='register.html'">
-Register</button>
+        </form>
+    </div>
 
-  
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

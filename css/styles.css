@@ -1,206 +1,316 @@
-body {
-    margin: 0px;
-    display: block;
-    font-family: sans-serif;
-    color: white;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    /* General */
+    --background-color: linear-gradient(#dca9fa, #fba7a7);
+    --text-color: white;
+
+    /* Login and Register */
+    --window-color: rgba(0, 0, 0, 0.25);
+
+    --button-color: rgba(112, 179, 255, 0.6); /* also for add and logout */
+    --button-hover: rgba(158, 203, 254, 0.8);
+
+    /* Contact Page */
+    --table-header-color: rgba(0, 0, 0, 0.25);
+    --table-odd-row-color: rgba(0, 0, 0, 0.25);
+    --table-even-row-color: rgba(0, 0, 0, 0.25);
+    
+    --edit-button-color: rgba(255, 204, 122, 0.659);
+    --edit-button-hover: rgba(255, 233, 172, 0.6);
+
+    --delete-button-color: rgba(255, 150, 150, 0.75);
+    --delete-button-hover: rgba(248, 190, 190, 0.6);
+
+}
+html {
+    min-height: 100%;
 }
 
-.root {
-   display: block;
+body {
+    /* box-sizing: border-box; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    /* background-color: #24252a; */
+    font-family: "Montserrat", sans-serif;
+    background-attachment: fixed;
+    padding-bottom: 50px;
+}
+
+.spacer {
+    padding-bottom: 50px;
+}
+
+li, a, button {
+    font-family: "Montserrat", sans-serif; 
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    padding: 20px 5%;
+    color: var(--text-color);
+}
+
+header button {
+    justify-content: left;
+    right: 5%;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+a {
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+a:hover {
+    color: var(--button-hover);
+}
+
+button {
+    padding: 9px 25px;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+
+.login-window {
+    color: var(--text-color);
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 400px;
+    background-color: var(--window-color);
+    border-radius: 10px;
+}
+
+.login-window h1, .register-window h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+.login-window form, .register-window form {
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.register-window {
+    color: var(--text-color);
+    position: absolute;
+    bottom: 45%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 370px;
+    background-color: var(--window-color);
+    border-radius: 10px;
+}
+
+form .txt-field {
+    position: relative;
+    margin: 30px 0;
+}
+
+.register-window form .txt-field{
+    margin: 20px 0;
+}
+
+input {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.txt-field input {
+    width: 100%;
+    padding: 0px 5px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.login-button {
+    width: 100%;
+}
+
+.signup-field {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.result {
+    padding: 7px 0;
 }
 
 .container {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow-x: hidden;
-}
-
-.login-container {
-    flex: 3 1 0%;
-    display: flex;
-    -webkit-box-pack: center;
     justify-content: center;
-    padding: 10px;
+    border-radius: 10px;
+    position: relative; /* Add relative position */
+    /* height: calc(100vh - 100px); Set height to fill screen, adjust as needed  */
+    overflow-y: auto; /* Add overflow-y property for scrolling */
 }
 
-.login-form {
-    max-width: 450px;
-    width: 100%;
+.contact-table {
+    border-collapse: collapse;
+    border-radius: 7px;
+    color: var(--text-color);
+    margin: auto 0;
+    font-size: 0.9em;
+    max-height: 500px;
+    overflow: hidden;
 }
 
-.inputs {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-}
-
-.login-title {
-    border-bottom: 1px solid rgb(217, 218, 220);
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-}
-
-.login-name {
-    box-sizing: border-box;
-    font-family: spotify-circular, Helvetica, Arial, sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    font-size: 1.1rem;
-    line-height: 1.25rem;
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    font-weight: 700;
-    width: 100%;
-    padding-bottom: 8px;
-}
-
-.login-input {
-    appearance: none;
-    background-image: none;
-    border: 0px;
-    display: block;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 400;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: spotify-circular, Helvetica, Arial, sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    border-radius: 4px;
-    padding: 14px;
-    background-color: var(--background-base,#ffffff);
-    box-shadow: inset 0 0 0 1px var(--essential-subdued,#878787);
-    color: var(--text-base,#000000);
-}
-
-.error {
-    font-size: 20px;
-    color: red;
-}
-
-.btn { /* Shared for all buttons except Register and Click here to Login */
-    /*font-family: spotify-circular, Helvetica, Arial, sans-serif;*/
-    font-family: sans-serif;
-    color: #CA4C9F; /* Font color*/
-    background-color: var(--background-base,#44F0C2); 
-    text-align: center;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-size: 19px;
+.contact-table thead tr {
+    background-color: var(--table-header-color);
+    color: white;
+    text-align: left;
     font-weight: bold;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
+}
+
+
+.contact-table th, .contact-table td {
+
+    /* display: inline-block; */
+    padding: 8px 8px;
+    border-bottom: 1px solid #dddddd;
+    word-wrap: break-word;
+    /* overflow: hidden; */
+    overflow-wrap: break-word;
+
+    /* text-overflow: ellipsis; */
+}
+
+.contact-table td input {
     width: 100%;
 }
 
 
+
+
+
+
+.contact-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.contact-table tbody tr:nth-of-type(even) {
+    background-color: var(--table-even-row-color);
+}
+.contact-table tbody tr:nth-of-type(odd) {
+    background-color: var(--table-odd-row-color);
+}
+.contact-table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--table-header-color);
+    padding-bottom: 50px;
+}
+
+.btn-edit {
+    background-color: var(--edit-button-color);
+}
+.btn-edit:hover {
+    background-color: var(--edit-button-hover);
+}
 .btn-delete {
-    min-width: 10em;
-    width: 35%;
-    color: #ff0000;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    background-color: var(--delete-button-color);
+}
+.btn-delete:hover {
+    background-color: var(--delete-button-hover);
 }
 
-
-.btn-show {
-    min-width: 10em;
-    width: 35%;
-    color: #00ff00;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+.search-bar {
+    min-width: 250px;
+    width: 25%;
+    height: 20%;
+    top: 30%;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
-.btn-login { /* Click here to login button */
-    color: var(--text-base,#000000); 
-    background-color: #ffffff;
-    
-
-}
-
-.btn-register {
-    color: var(--text-base,#898989);
-    background-color: #ffffff;
-    border: solid 1px rgba(0,0,0,1);
-}
-
-.btn:hover {
-    transform: scale(1.1);
-}
-
-h2 {
-    display: block;
-    font-size: 1.1rem;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    text-align: center;
-}
-
-
-.search-add {
-    display: horizontal;
-}
-
-ul {
+p {
     display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
+    justify-content: center;
 }
 
-li {
-    font-family: spotify-circular, Helvetica, Arial, sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    position: relative;
-    display: block;
-    padding: 10px 20px;
-    color: black;
-    margin-bottom: 10px;    
-    background-color: #fff;
-    border: 1px solid rgb(0, 0, 0);
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
-    border-bottom-left-radius: .25rem;
-    border-bottom-right-radius: .25rem;
+@media (max-height: 800px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+    .contact-table {
+        top: 30%;
+    }
+    .register-window {
+        bottom: 30%;
+    }
 }
+@media (max-width: 700px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
 
-.inline {
-    display: inline-block;
-}
+    .contact-table {
+        width: 100%;
+        /* overflow-x: auto; */
+        /* overflow-wrap: break-word; */
+        table-layout: fixed;
+        overflow-x: auto;
+    }
 
-.list-item {
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .contact-table td button {
+        /* text-overflow: ellipsis; */
+        height: 100%;
+        padding: 4px;
+    }
 
-.list-functions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    html {
+        font-size: 14px;
+    }
 
-.list-details {
-    display: none;
-  }
+    a {
+        font-size: 14px;
+    }
 
-.add-contact-form {
-    display: none;
+    button {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    .contact-table {
+        font-size: 10px;
+    }
+
+    .contact-table a {
+        font-size: 11px;
+    }
 }

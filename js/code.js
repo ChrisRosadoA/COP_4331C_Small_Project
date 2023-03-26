@@ -5,6 +5,9 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
+let errorColor = '#FF0000';
+let successColor = '#FFFFFF';
+
 function doLogin()
 {
 	userId = 0;
@@ -22,7 +25,7 @@ function doLogin()
 
 	if (login == "" || password =="") {
 		document.getElementById('loginResult').innerHTML = "Please fill out all the required fields.";
-        document.getElementById('loginResult').style.color = "red";
+        document.getElementById('loginResult').style.color = errorColor;
         return;
 	}
 
@@ -48,7 +51,7 @@ function doLogin()
 				
 				if( userId < 1 )
 				{		
-					document.getElementById("loginResult").style.color = 'red';
+					document.getElementById("loginResult").style.color = errorColor;
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
@@ -65,6 +68,7 @@ function doLogin()
 				// console.log(document.cookie);
 	
 				window.location.href = "color.html";
+
 			}
 		};
 		xhr.send(jsonPayload);
@@ -72,11 +76,27 @@ function doLogin()
 	catch(err)
 	{
 		console.log(err);
-		document.getElementById("addContactResult").style.color = 'red';
+		document.getElementById("addContactResult").style.color = errorColor;
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 }
+
+// Event handler for the input element
+const loginElement = document.getElementById('loginResult');
+const passwordElement = document.getElementById('loginResult');
+
+// loginElement.addEventListener('keydown', (event) => {
+// 	if (event.keyCode === 13) {
+// 		doLogin();
+// 	}
+// });
+
+// passwordElement.addEventListener('keydown', (event) => {
+// 	if (event.keyCode === 13) {
+// 		doLogin();
+// 	}
+// });
 
 function saveCookie()
 {
@@ -117,6 +137,9 @@ function readCookie()
 	{
 		// document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 		console.log("Logged in as " + firstName + " " + lastName + " with a user ID of " + userId);
+
+		document.getElementById("addContactResult").style.color = successColor;
+		document.getElementById("addContactResult").innerHTML = "Welcome " + firstName + " " + lastName + ", here are your contacts.";
 	}
 
 	
@@ -252,12 +275,26 @@ function addContact() {
 
 	document.getElementById("addContactResult").innerHTML = "";
 
+	//Check if edit credentials are valid
+
 	if (first == "" || last == "" || email == "" || phone == "" || address == "") {
 		document.getElementById("addContactResult").innerHTML = "Please complete all fields";
-		document.getElementById("addContactResult").style.color = '#DE2C2C';
+		document.getElementById("addContactResult").style.color = errorColor;
+		return;
+	}
+	
+	if (!isValidEmail(email)) {
+		document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
+		document.getElementById("addContactResult").style.color = errorColor;
 		return;
 	}
 
+	if (formatPhoneNumber(phone) == -1) {
+		document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
+		document.getElementById("addContactResult").style.color = errorColor;
+		return;
+	}
+	phone = formatPhoneNumber(phone);
 	
 
 	let url = urlBase + '/AddContact.' + extension;
@@ -278,7 +315,7 @@ function addContact() {
   			if (this.readyState == 4 && this.status == 200)
   			{
 				document.getElementById("addContactResult").innerHTML = "Contact successfully added!";
-				document.getElementById("addContactResult").style.color = 'green';
+				document.getElementById("addContactResult").style.color = successColor;
 
 				console.log("updating new table");
 				showTable();
@@ -299,14 +336,40 @@ function compareStrings(a, b) {
 	a = a.toLowerCase();
 	b = b.toLowerCase();
 
-	return (a < b) ? -1 : (a > b) ? 1 : 0;
+	if (ascending) {
+		console.log("ascending");
+		return (a < b) ? -1 : (a > b) ? 1 : 0;
+	}
+	else {
+		console.log("descending");
+		return (a > b) ? -1 : (a < b) ? 1 : 0;
+	}	
 }
 
-// Loading contacts into the table from database
+function compareNums(a, b) {
+	a = a.replace(/\D/g, '');
+	b = b.replace(/\D/g, '');
 
-let contactList = [];
+	if (ascending) {
+		console.log("ascending");
+		return (a < b) ? -1 : (a > b) ? 1 : 0;
+	}
+	else {
+		console.log("descending");
+		return (a > b) ? -1 : (a < b) ? 1 : 0;
+	}	
+}
+
+
+
+
+// Loading contacts into the table from database
+let numOfContacts = 0;
 let index = 0;
 let remaining = 0;
+
+let sortType = 0; // 0 for first name, 1 for last name, 2 for email, 3 for phone, 4 for address
+let ascending = true; // 0 for ascending, 1 for descending
 
 function showTable() {
 	
@@ -330,23 +393,36 @@ function showTable() {
 				var table = document.getElementById("contactList");
 				//table.innerHTML = "<thead><tr></tr>";
 
-				
-				contactList = jsonObject.results;
-				console.log(contactList);
+        // numOfContacts = jsonObject.results.length;     Changed by Jared Reich on 3/26/2023
+				// contactList = jsonObject.results;
+				// console.log(contactList);
+
+				console.log(jsonObject.results);
 				
 
-				if (!!contactList) {
+				if (!!jsonObject.results) {
 
-					contactList = contactList.sort(function(a, b) {
-						return compareStrings(a["FirstName"], b["FirstName"]);
+					jsonObject.results = jsonObject.results.sort(function(a, b) {
+						switch(sortType) {
+							case 0: 
+								return compareStrings(a["FirstName"], b["FirstName"]);
+							case 1:
+								return compareStrings(a["LastName"], b["LastName"]);
+							case 2:
+								return compareStrings(a["Email"], b["Email"]);
+							case 3:
+								return compareNums(a["PhoneNumber"], b["PhoneNumber"]);
+							case 4:
+								return compareStrings(a["Address"], b["Address"]);
+						}
 					})
 					
 					console.log("Loading table...");
 					var html = "";
 
-					remaining = contactList.length;
+					remaining = jsonObject.results.length;
 
-					html = loadContacts(contactList);
+					html = loadContacts(jsonObject.results);
 
 					document.getElementById("contactList").innerHTML = html;
 				}
@@ -375,7 +451,20 @@ function showTable() {
 	}
 }
 
+// sets the sorting type to the input
+function setSortType(val) {
+	//swap to descending order if input is already sorted ascending
+	console.log(sortType + " " + val);
+	if (sortType == val) ascending = !ascending;
+	else ascending = true; //default is ascending
 
+	sortType = val;
+	
+	showTable();
+}
+
+
+//Appends row to the inner html of the table
 function addRow(contactList, i) {
 
 	var firstName = contactList[i]["FirstName"];
@@ -397,7 +486,7 @@ function addRow(contactList, i) {
 					"<td><span id='contactAddress" + i + "'>"   + address + "</span></td>" +
 					"<td>" +
 						"<button class='btn-edit' onclick='editContact(" + i + "," + contactList[i]["ID"] + ")' id='editBtn" + i + "'>Edit</button>" +
-						"<button class='btn-delete' onclick='deleteContact(" + contactList[i]["ID"] + ")' id='deleteBtn" + i + "'>Delete</button>" +
+						"<button class='btn-delete' onclick='deleteContact(" + contactList[i]["ID"] + "," + '"' + contactList[i]["FirstName"] + " " + contactList[i]["LastName"] + '"' + ")' id='deleteBtn" + i + "'>Delete</button>" +
 					"</td>" +
 				"</tr>";
 
@@ -405,6 +494,7 @@ function addRow(contactList, i) {
 
 }
 
+//Loads contacts from the appened tables. Puts the edit row as the first entry
 function loadContacts(contactList) {
 	var html = "";
 
@@ -421,15 +511,28 @@ function loadContacts(contactList) {
 						"<td><input id='addPhone' placeholder='Add phone number'></td>" +
 						"<td><input id='addAddress' placeholder='Add address'></td>" +
 						"<td>" +
-							"<button class='btn' onclick='addContact()' id='addBtn'>Add Contact</button>" +
+							"<button class='btn' onclick='addContact()' id='addBtn'>Add</button>" +
 						"</td>" +
 					"</tr>";
 
 
-	return html + editRow;
+	return editRow + html; //putting edit row as the first entry
 }
 
-function deleteContact(id) {
+//Deletes contact based on database id
+function deleteContact(id, name) {
+
+	if (currentlyEditting != -1) {
+		document.getElementById('addContactResult').innerHTML = "Please finish editting current contact.";
+		document.getElementById("addContactResult").style.color = errorColor;
+		return;
+	}
+
+	let confirmation = confirm("Are you sure you want to remove " + name + " from your contacts?");
+
+	if (confirmation == false) {
+		return;
+	}
 
 	console.log(id);
 
@@ -449,10 +552,10 @@ function deleteContact(id) {
 			if (this.readyState == 4 && this.status == 200)
 			{
 				console.log("Deleting contact: " + id);
-
+				
 				showTable();
 			}
-		}
+		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -461,6 +564,7 @@ function deleteContact(id) {
 	}
 }
 
+//Toggles contact edit mode specific to contact
 function toggleDetails(id) {
 	console.log("togglind for contact: " + id);
 
@@ -476,7 +580,7 @@ function toggleDetails(id) {
 	}
 }
 
-
+//Searches for contacts based on query string from input field
 function searchContact() {
 	
 	var input = document.getElementById("searchBar").value;
@@ -528,13 +632,17 @@ function searchContact() {
 
 }
 
+// Store variable for contact currently being editted
+let currentlyEditting = -1;
 
+// Edits contact list 
 function editContact(id, contactId) {
 
+	console.log("Currently editting contact: " + currentlyEditting);
+	
 	console.log("Editting contact " + id);
 
 	var row = document.getElementById("contact" + id);
-	
 
 	var button = document.getElementById("editBtn" + id);
 
@@ -550,65 +658,71 @@ function editContact(id, contactId) {
 	var phoneVal = document.getElementById("contactPhone" + id).innerHTML;
 	var addressVal = document.getElementById("contactAddress" + id).innerHTML;
 
-	// console.log(row);
-	// console.log("this is the first val"+firstNameVal)
-
-
-	if (row.classList.contains("editing")) {
-
+	if (currentlyEditting == -1 || currentlyEditting == id) {
 		
+		if (row.classList.contains("editing")) {
 
-		
-
-		var editFirstName = document.getElementById("editFirstName" + id).value;
-		var editLastName = document.getElementById("editLastName" + id).value;
-		var editEmail = document.getElementById("editEmail" + id).value;
-		var editPhone = document.getElementById("editPhone" + id).value;
-		var editAddress = document.getElementById("editAddress" + id).value;
-
-		if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
-			document.getElementById("addContactResult").innerHTML = "Please complete all fields";
-			document.getElementById("addContactResult").style.color = 'red';
-			return;
+			var editFirstName = document.getElementById("editFirstName" + id).value;
+			var editLastName = document.getElementById("editLastName" + id).value;
+			var editEmail = document.getElementById("editEmail" + id).value;
+			var editPhone = document.getElementById("editPhone" + id).value;
+			var editAddress = document.getElementById("editAddress" + id).value;
+	
+			//Check if edit credentials are valid
+			if (editFirstName == "" || editLastName == "" || editEmail == "" || editPhone == "" || editAddress == "") {
+				document.getElementById("addContactResult").innerHTML = "Please complete all fields";
+				document.getElementById("addContactResult").style.color = errorColor;
+				return;
+			}
+			if (!isValidEmail(editEmail)) {
+				document.getElementById('addContactResult').innerHTML = "The email is not in a valid format.";
+				document.getElementById("addContactResult").style.color = errorColor;
+				return;
+			}
+			if (formatPhoneNumber(editPhone) == -1) {
+				document.getElementById('addContactResult').innerHTML = "The phone number is invalid.";
+				document.getElementById("addContactResult").style.color = errorColor;
+				return;
+			}
+			editPhone = formatPhoneNumber(editPhone);
+	
+			firstNameElem.innerHTML = editFirstName;
+			lastNameElem.innerHTML = editLastName;
+			emailElem.innerHTML = editEmail;
+			phoneElem.innerHTML = editPhone;
+			addressElem.innerHTML = editAddress;
+			
+			console.log("Finished editing");
+	
+			row.classList.toggle("editing");
+	
+			button.innerHTML = "Edit";
+	
 		}
-
-		firstNameElem.innerHTML = editFirstName;
-		lastNameElem.innerHTML = editLastName;
-		emailElem.innerHTML = editEmail;
-		phoneElem.innerHTML = editPhone;
-		addressElem.innerHTML = editAddress;
-
-		
-		
-		console.log("Finished editing");
-
-		row.classList.toggle("editing");
-
-		button.innerHTML = "Edit";
+		else {
+	
+			row.classList.toggle("editing");
+	
+			button.innerHTML = "Done";
+	
+			// console.log(" Adding input eleemnts now ");
+			// console.log(firstNameElem.innerHTML);
+			firstNameElem.innerHTML = "<input type='firstName' id='editFirstName" + id + "' placeholder='Add first name' value='" + firstNameVal + "'>";
+			lastNameElem.innerHTML = "<input type='lastName' id='editLastName" + id + "' placeholder='Add last name' value='" + lastNameVal + "'>";
+			emailElem.innerHTML = "<input type='email' id='editEmail" + id + "' placeholder='Add email' value='" + emailVal + "'>";
+			phoneElem.innerHTML = "<input type='phone' id='editPhone" + id + "' placeholder='Add phone number' value='" + phoneVal + "'>";
+			addressElem.innerHTML = "<input type='address' id='editAddress" + id + "' placeholder='Add address' value='" + addressVal + "'>";
+	
+			console.log("Started editing");
+							
+			currentlyEditting = id;
+		}
 	}
 	else {
-
-		row.classList.toggle("editing");
-
-		button.innerHTML = "Done";
-
-		// console.log(" Adding input eleemnts now ");
-		// console.log(firstNameElem.innerHTML);
-		firstNameElem.innerHTML = "<input type='firstName' id='editFirstName" + id + "' placeholder='Add first name' value='" + firstNameVal + "'>";
-		lastNameElem.innerHTML = "<input type='lastName' id='editLastName" + id + "' placeholder='Add last name' value='" + lastNameVal + "'>";
-		emailElem.innerHTML = "<input type='email' id='editEmail" + id + "' placeholder='Add email' value='" + emailVal + "'>";
-		phoneElem.innerHTML = "<input type='phone' id='editPhone" + id + "' placeholder='Add phone number' value='" + phoneVal + "'>";
-		addressElem.innerHTML = "<input type='address' id='editAddress" + id + "' placeholder='Add address' value='" + addressVal + "'>";
-
-		
-
-		console.log("Started editing");
+		document.getElementById('addContactResult').innerHTML = "Please finish editting current contact.";
+		document.getElementById("addContactResult").style.color = errorColor;
+		return;
 	}
-	// console.log(firstNameElem)
-	// console.log(row);
-
-	
-
 
 
 	let tmp = {firstname: editFirstName, lastname: editLastName, phone: editPhone, email: editEmail, address: editAddress, id: contactId};
@@ -627,7 +741,11 @@ function editContact(id, contactId) {
   			if (this.readyState == 4 && this.status == 200)
   			{
 				document.getElementById("addContactResult").innerHTML = "Contact successfully updated!";
-				document.getElementById("addContactResult").style.color = 'green';
+				document.getElementById("addContactResult").style.color = successColor;
+        document.getElementById("addContactResult").style.fontSize = 56;
+
+				currentlyEditting = -1;
+				console.log("Contact successfully updated... currentlyEditting: " + currentlyEditting);
 				
 				showTable();	// Show added contact to the table
 			}
@@ -638,5 +756,28 @@ function editContact(id, contactId) {
   	{
   		document.getElementById("addContactResult").innerHTML = err.message;
   	}
+}
+
+
+function isValidEmail(email) {
+    //regex
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return pattern.test(email);
+}
+
+function formatPhoneNumber(phoneNumber) {
+    
+    const digits = phoneNumber.replace(/\D/g, '');
+    
+    
+    if (digits.length !== 10) {
+      // Return -1 to indicate an invalid phone number format
+      return -1;
+    }
+    
+    const formattedPhoneNumber = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6, 10)}`;
+    
+    return formattedPhoneNumber;
 }
 

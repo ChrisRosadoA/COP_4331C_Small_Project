@@ -1,91 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
+	<title>Contact Manager</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/styles.css" rel="stylesheet">	
+
+    <script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/register.js"></script>
-
-    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed--> 
-    <link href="css/galaxyStyle.css" rel="stylesheet"> <!-- Animated Background --> 
-    <link href="css/styles.css" rel="stylesheet">
-
-	
-   <!--   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> -->
-
-   <!-- <link rel="stylesheet" type="text/css" href="register-styles.css" /> -->
-
-
 </head>
 <body class="bg">
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contact Manager</h1>
+                
+    </header>
 
 
-<!--Beginning of Animated Background -->
+    <!-- Register Window -->
+    <div class="register-window">
+        <h1>Sign Up</h1>
 
+        <form>
 
-<div id="hey"><div id="layer-up"></div></div>
-<div id="layer-0">
-	
-	<div id="layer-1">
-		<div id="layer-2">
-			<div id="lines">
-				<div id="layer-corner"></div>
-			</div>
-		</div>
-	</div>
-</div>
+            <div class="txt-field">
+                <label>First Name</label>
+                <input placeholder="Enter a first name" id="firstName" type="firstName">
+            </div>
 
-<div id="mtnZZZ"></div>
+            <div class="txt-field">
+                <label>Last Name</label>
+                <input placeholder="Enter a last name" id="lastName" type="lastName">
+            </div>
 
-<!--End of Animated Background -->
+            <div class="txt-field">
+                <label>Username</label>
+                <input placeholder="Enter a username" id="username" type="username">
+            </div>
 
+            <div class="txt-field">
+                <label>Password</label>
+                <input placeholder="Enter a password" id="loginPassword" type="password">
+            </div>
 
+            <div class="txt-field">
+                <label>Confirm Password</label>
+                <input placeholder="Enter password again" id="repeatPassword" type="password">
+            </div>
+            
+            <!-- <div class="txt-field">
+                <label>Email</label>
+                <input placeholder="Enter an email" id="email" type="email">
+            </div>
 
+            <div class="txt-field">
+                <label>Phone Number</label>
+                <input placeholder="Enter a phone number" id="phoneNumber" type="phoneNumber">
+            </div> -->
 
-	<div class="root">
-		<div< class="container">
-			<div class="login-container">
-				<div class="login-form">    
-					<h1 class="login-title">Register</h1>
-					<form class="inputs" id="register">
-						<p class="login-name">Name</p>
-						<input class="login-input" type="name" id="firstName" name="login" class="txtbox" placeholder="First name" required/>
+            <p class="result" id="registerResult"></p>
 
-						<p class="login-name">Last Name</p>
-						<input class="login-input" type="name" id="lastName" name="password" class="txtbox" placeholder="Last name" required/>
+            <button type="button" class="login-button" onclick="register()">Sign up</button>
 
-						<p class="login-name">Username</p>
-						<input class="login-input" type="username" id="username" name="login" class="txtbox" placeholder="Username" required/>
+            <div class="signup-field">
+                Already have an account? <a href="index.html">Log in</a>
+            </div>
 
-						<p class="login-name">Password</p>
-						<input class="login-input" type="password" id="loginPassword" name="password" class="txtbox" placeholder="Password" required/>
+        </form>
+        
+    </div>
+    <div class="spacer">
 
-						<p class="login-name">Repeat Password</p>
-						<input class="login-input" type="password" id="repeatPassword" name="password" class="txtbox" placeholder="Repeat Password" required/>
-
-						<p class="login-name">Email</p>
-						<input class="login-input" type="email" id="email" name="login" class="txtbox" placeholder="Email" required/>
-
-						<p class="login-name">Phone Number</p>
-						<input class="login-input" type="name" id="phoneNumber" name="password" class="txtbox" placeholder="Phone Number" required/>
-
-						<p class="error" id="registerResult"></p>
-						<!-- <input type="submit" name="login" value="Register" class="btn btn-register" onclick="register()" /> -->
-						<button type="button" class="btn" onclick="register()">Register</button>
-					</form>
-
-					<hr role="presentation">
-					<h2>Already have an account?</h2>
-					<button class="btn btn-login" type="button" onclick="location.href='index.html'">Click here to login</button>
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-				</div>
-			</div>
-		</div>
-	</div>
-
+    </div>
 </body>
 </html>

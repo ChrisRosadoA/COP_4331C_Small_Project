@@ -5,10 +5,9 @@
       <meta charset="UTF-8">
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
+    <script src="https://kit.fontawesome.com/040d09d5dd.js" crossorigin="anonymous"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel="stylesheet" href="./style.css"> <!--Needed-->
-                                            
-    <link href="css/galaxyStyle.css" rel="stylesheet"> <!-- Animated Background -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="css/styles.css" rel="stylesheet">	
 
@@ -18,76 +17,119 @@
       readCookie();
       showTable();
     }, false);
-
-      
     </script>
 </head>
-<body class="bg">
+<body>
+    <!-- Navigation And Logout-->
+    <header>
+        
+        <h1>Contacts</h1>
+                
+        <a class="cta" href="#"><button onclick="doLogout()">Log Out</button></a>
 
+    </header>
 
-<!--Beginning of Animated Background -->
+    <!-- Search Bar -->
+    <div class="container">
+        <input class="search-bar" type="search" placeholder="Search..." id="searchBar" onkeyup="searchContact()">
+    </div>
 
-
-<div id="hey"><div id="layer-up"></div></div>
-<div id="layer-0">
-	
-	<div id="layer-1">
-		<div id="layer-2">
-			<div id="lines">
-				<div id="layer-corner"></div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div id="mtnZZZ"></div>
-
-
-
-
-
-	<div class="root">
+    <!-- Response Messages -->
+    <p class="contact-response" id="addContactResult"></p>
     
-		<div class="container">
-			<div class="login-container">
-				<div class="login-form">    
-					<h1 class="login-title">Contacts</h1>
+    <!-- Contact Listing -->
+    <div class="container">
 
-          <div class="search-add">
-            <input class="login-input" type="text" id="searchBar" name="search" class="txtbox" onchange="searchContact()" placeholder="Search..." />
-            <hr role="presentation">
-
-            <button id="toggle-button" type="button" class="btn" onclick="toggleContact()">Add Contact</button>
+        <table class="contact-table">
+            <thead id="contactHeader">
+                <tr>
+                    <th><a onclick="setSortType(0)">First Name</a></th>
+                    <th><a onclick="setSortType(1)">Last Name</a></th>
+                    <th><a onclick="setSortType(2)">Email</a></th>
+                    <th><a onclick="setSortType(3)">Phone</a></th>
+                    <th><a onclick="setSortType(4)">Address</a></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="contactList">
+                <!-- This is testing for fix of the new account needs the add contact Edit made by Jared 3-26-2023-->
+                <tr>
+                    <td><input id='addFirstName' placeholder='Add first name'></td>
+                    <td><input id='addLastName' placeholder='Add last name'></td>
+                    <td><input id='addEmail' placeholder='Add email'></td>
+                    <td><input id='addPhone' placeholder='Add phone number'></td>
+                    <td><input id='addAddress' placeholder='Add address'></td>
+                    <td>
+                        <button class='btn' onclick='addContact()' id='addBtn'>Add Contact</button>
+                    </td>
+                </tr>
+                
+                <!-- end of Jared Edit-->
+                <!-- <tr>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>jdoe@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr>
+                <tr>
+                    <td>John</td>
+                    <td>Smith</td>
+                    <td>jsmith@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr>
+                <tr>
+                    <td>Noah</td>
+                    <td>Smith</td>
+                    <td>nsmith@gmail.com</td>
+                    <td>123 456-7890</td>
+                    <td>1234 Example Street Way</td>
+                    <td>
+                        <button class="btn-edit" onclick="editContact()">Edit</button>
+                        <button class="btn-delete" onclick="deleteContact()">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><input></td>
+                    <td><button class="btn" onclick="addContact()">Add</button></td>
+                </tr> -->
+            </tbody>
+        </table>
+        
             
-            <form class="add-contact-form" id="toggle-slider-contact">
-              
-              <p class="login-name">Name</p>
-              <input class="login-input" type="name" id="contactname" class="txtbox" placeholder="First name" required/>
-              <p class="login-name">Last Name</p>
-              <input class="login-input" type="name" id="contactlastname" class="txtbox" placeholder="Last name" required/>
-              <p class="login-name">Email</p>
-              <input class="login-input" type="email" id="contactemail" class="txtbox" placeholder="Email" required/>
-              <p class="login-name">Phone Number</p>
-              <input class="login-input" type="phone" id="contactphone" class="txtbox" placeholder="Phone Number" required/>
-              <p class="login-name">Address</p>
-              <input class="login-input" type="address" id="contactaddress" class="txtbox" placeholder="Address" required/>
-              <br/>
-              
-              <button type="button" class="btn" onclick="addContact()">Enter Contact</button>
+    </div>
 
-              <hr role="presentation">
-            </form>
-            <p class="login-name" id="addContactResult"></p>
-          </div>
-          <hr role="presentation">
-          
-          <ul id="contactList">
-            
-          </ul>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="spacer">
+        
+    </div>
 
 </body>
-</html>
