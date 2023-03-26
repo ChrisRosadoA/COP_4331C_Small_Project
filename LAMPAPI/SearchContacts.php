@@ -1,7 +1,7 @@
 <?php
 	$inData = getRequestInfo();
-        $userid = $inData["userid"];
-	$fullname = "%" . $inData["search"] . "%";
+        $userid = $inData["UserID"];
+	$fullname = "%" . $inData["Search"] . "%";
 
 	$searchResults = "";
 	$searchCount = 0;
@@ -13,8 +13,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ?) AND UserID=?");
-		$stmt->bind_param("ssi", $fullname, $fullname, $userid);
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ? OR PhoneNumber like ? OR Email like ? OR Address like ?) AND UserID=?");
+		$stmt->bind_param("sssssi", $fullname, $fullname, $fullname, $fullname, $fullname, $userid);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		
