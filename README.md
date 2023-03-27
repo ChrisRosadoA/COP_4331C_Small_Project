@@ -20,7 +20,7 @@ https://projectreich.com/
 - Clone repo using git clone into a directory
 - Open MobaXTerm and create a new SSH session
 - Use the IP: `104.248.228.192` and login as `root`
-- Enter the directory /var/www/html/ to locate the repository
+- Enter the directory `/var/www/html/` to locate the repository
 - Any changes made locally on Visual Studio Code must be updated on MobaXTerm
 
 ## To Debug
