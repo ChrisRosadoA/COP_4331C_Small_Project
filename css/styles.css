@@ -2,14 +2,14 @@
 
 :root {
     /* General */
-    --background-color: linear-gradient(#dca9fa, #fba7a7);
+    --background-color: linear-gradient(#da9cfe, #fba7a7);
     --text-color: white;
 
     /* Login and Register */
     --window-color: rgba(0, 0, 0, 0.25);
 
-    --button-color: rgba(112, 179, 255, 0.6); /* also for add and logout */
-    --button-hover: rgba(158, 203, 254, 0.8);
+    --button-color: rgba(129, 188, 255, 0.6); /* also for add and logout */
+    --button-hover: rgba(144, 196, 255, 0.8);
 
     /* Contact Page */
     --table-header-color: rgba(0, 0, 0, 0.25);
@@ -44,7 +44,7 @@ body {
 }
 
 li, a, button {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif; 
     font-weight: 500;
     font-size: 16px;
     color: var(--text-color);
@@ -170,6 +170,13 @@ input {
     text-align: center;
 }
 
+.result {
+    padding: 7px 0;
+}
+.contact-response {
+    font-size: 20px;
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -213,11 +220,6 @@ input {
     width: 100%;
 }
 
-
-
-
-
-
 .contact-table tbody tr {
     border-bottom: 1px solid #dddddd;
 }
@@ -233,8 +235,17 @@ input {
     padding-bottom: 50px;
 }
 
+.contact-table button {
+    min-width: 106px;
+    margin: 3px;
+}
+.contact-table th button {
+    width: 100%;
+}
+
 .btn-edit {
     background-color: var(--edit-button-color);
+    margin-right: 10px; 
 }
 .btn-edit:hover {
     background-color: var(--edit-button-hover);
@@ -259,6 +270,8 @@ p {
     display: flex;
     justify-content: center;
 }
+
+/* Mobile Support */
 
 @media (max-height: 800px) {
     /* CSS that should be displayed if width is equal to or less than 800px goes here */
@@ -309,4 +322,14 @@ p {
     .contact-table a {
         font-size: 11px;
     }
+    
+    .contact-table button {
+        min-width: 54px;
+        margin: 1px;
+    }
+
+    .contact-response {
+        font-size: 15px;
+    }
+
 }

@@ -10,6 +10,9 @@ let repeatPassword = "";
 let email = "";
 let phone = "";
 
+let errorColor = '#E02745';
+let successColor = '#248439';
+
 function register() {
 
     firstName = document.getElementById('firstName').value;
@@ -28,21 +31,21 @@ function register() {
     //Check if the credentials are valid
     if (firstName == "" || lastName == "" || username == "" || password == "" || repeatPassword == "" || email == "" || phone == "") {
         document.getElementById('registerResult').innerHTML = "Please fill out all the required fields.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
     //check if username has spaces
     if (username.includes(" ")) {
         document.getElementById('registerResult').innerHTML = "Username cannot have spaces.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
     //check if username has spaces
     if (password.includes(" ")) {
         document.getElementById('registerResult').innerHTML = "Password cannot have spaces.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
@@ -50,20 +53,20 @@ function register() {
     //Check if password is same as repeat
     if (password != repeatPassword) {
         document.getElementById('registerResult').innerHTML = "The passwords do not match.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
     //Check if password or username is too short 
     if (username.length < 7) {
         document.getElementById('registerResult').innerHTML = "The username is too short.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
     if (password.length < 8) {
         document.getElementById('registerResult').innerHTML = "The password is too short.";
-        document.getElementById('registerResult').style.color = "red";
+        document.getElementById('registerResult').style.color = errorColor;
         return;
     }
 
@@ -102,17 +105,17 @@ function register() {
   			if (this.readyState == 4 && this.status == 200)
   			{
   				let jsonObject= JSON.parse( xhr.responseText);
-  				error = jsonObject.error;
+  				// error = jsonObject.error;
 
-  				if (error != ""){
-  					document.getElementById("registerResult").innerHTML = error;
-  					document.getElementById("registerResult").style.color = '#E02745';
+  				// if (error != ""){
+  				// 	document.getElementById("registerResult").innerHTML = error;
+  				// 	document.getElementById("registerResult").style.color = '#E02745';
 
-  					return;
-  				}
+  				// 	return;
+  				// }
 
   				document.getElementById("registerResult").innerHTML = "Successfully registered, redirecting to login page.";
-  				document.getElementById("registerResult").style.color = 'green';
+  				document.getElementById("registerResult").style.color = successColor;
 
   				// Clear all the fields
   				document.getElementById("firstName").value = "";
@@ -120,21 +123,21 @@ function register() {
   				document.getElementById("username").value = "";
   				document.getElementById("loginPassword").value = "";
   				document.getElementById("repeatPassword").value = "";
-                document.getElementById('email').value = "";
-                document.getElementById('phoneNumber').value = "";
+                //document.getElementById('email').value = "";
+                //document.getElementById('phoneNumber').value = "";
 
 				// Wait for 2 seconds to show the "Successfully registered" message then redirect to the login page
-				// window.setTimeout(function (){window.location.href = "index.html";}, 1000);
+				window.setTimeout(function (){window.location.href = "index.html";}, 1000);
                 // window.location.href = "color.html";
 
-                window.location.href = "login.html";
+                window.location.href = "https://projectreich.com";  // Edit made by Jared Reich on 3/26/2023
                 
-                document.getElementById("loginResult").innerHTML = "Successfully registered, redirecting to login page.";
-  				document.getElementById("loginResult").style.color = 'green';
+                document.getElementById("registerResult").innerHTML = "Successfully registered, redirecting to login page.";
+  				document.getElementById("registerResult").style.color = successColor;
             }
             else if (this.status == 409) {
-                document.getElementById("loginResult").innerHTML = "This username is already in use.";
-  				document.getElementById("loginResult").style.color = 'red';
+                document.getElementById("registerResult").innerHTML = "This username is already in use.";
+  				document.getElementById("registerResult").style.color = errorColor;
             }
 
   		};
@@ -145,7 +148,7 @@ function register() {
   	catch(err)
   	{
   		document.getElementById("registerResult").innerHTML= err.message;
-  		document.getElementById("registerResult").style.color = '#E02745';
+  		document.getElementById("registerResult").style.color = errorColor;
         console.log("Could not register successfully.");
   	}
 
