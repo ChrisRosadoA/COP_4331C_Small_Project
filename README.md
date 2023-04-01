@@ -23,7 +23,7 @@ https://projectreich.com/
 - Enter the directory `/var/www/html/` to locate the repository
 - Any changes made locally on Visual Studio Code must be updated on MobaXTerm
 
-## To Debug
+## To Debug API
 - Create a SSH session with the IP: `104.248.228.192` and login as `root`
 - Run the command `sudo tail -f /var/log/apache2/error.log` 
 
